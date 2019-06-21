@@ -65,6 +65,16 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
 
 
+    //loco
+    def loco_version = "1.1.0"
+    implementation "com.sys1yagi.loco:loco-core:$loco_version"
+    implementation "com.sys1yagi.loco:loco-smasher-filterable-gson:1.0.0"
+    implementation "com.sys1yagi.loco:loco-store-android-sqlite:1.0.0"
+
+    //gson
+    def gson_version = "2.8.5"
+    implementation "com.google.code.gson:gson:$gson_version"
+
     //-------------------------test--------------------------
     testImplementation "junit:junit:4.12"
     androidTestImplementation "androidx.test:runner:1.3.0-alpha01"
