@@ -70,6 +70,7 @@ dependencies {
     implementation "com.sys1yagi.loco:loco-core:$loco_version"
     implementation "com.sys1yagi.loco:loco-smasher-filterable-gson:1.0.0"
     implementation "com.sys1yagi.loco:loco-store-android-sqlite:1.0.0"
+    implementation 'com.sys1yagi.loco:loco-sender-gson-jsonarray:1.0.0'
 
     //gson
     def gson_version = "2.8.5"
