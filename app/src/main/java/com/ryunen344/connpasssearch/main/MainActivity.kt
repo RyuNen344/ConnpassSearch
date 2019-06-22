@@ -1,7 +1,8 @@
-package com.ryunen344.connpasssearch
+package com.ryunen344.connpasssearch.main
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.ryunen344.connpasssearch.R
 import com.ryunen344.connpasssearch.loco.log.ScreenLog
 import com.sys1yagi.loco.core.Loco
 
