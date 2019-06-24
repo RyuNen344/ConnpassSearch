@@ -1,0 +1,41 @@
+package com.ryunen344.connpasssearch.main
+
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
+import com.ryunen344.connpasssearch.main.eventList.EventListFragment
+import com.ryunen344.connpasssearch.main.search.SearchFragment
+import com.ryunen344.connpasssearch.util.LogUtil
+
+class MainSectionsPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
+
+
+    override fun getItem(position: Int): Fragment {
+        return when (position) {
+            0 -> EventListFragment.newInstance().also {
+                //it.mPagerPosition = position
+                LogUtil.d()
+            }
+            1 -> EventListFragment.newInstance().also {
+                //it.mPagerPosition = position
+                LogUtil.d()
+            }
+            else -> SearchFragment.newInstance().also {
+                LogUtil.d()
+            }
+        }
+    }
+
+    override fun getCount(): Int {
+        return 3
+    }
+
+    override fun getPageTitle(position: Int): CharSequence? {
+        return when (position) {
+            0 -> "timeline"
+            1 -> "mention"
+            else -> "search"
+        }
+    }
+
+}
