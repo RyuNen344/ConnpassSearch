@@ -115,10 +115,9 @@ object LogUtil {
         val trace: StackTraceElement = Thread.currentThread().stackTrace[4]
         val cla: String = trace.className
         var pattern: Pattern = Pattern.compile("[\\.]")
-        val splitedStr: List<String> = pattern.split(cla).toList()
+        val splitStr: List<String> = pattern.split(cla).toList()
 
-        val tag: String = "${splitedStr[splitedStr.size - 1]}#${trace.methodName}:${trace.lineNumber}"
-        return tag
+        return "${splitStr[splitStr.size - 1]}#${trace.methodName}:${trace.lineNumber}"
     }
 
     private fun getMessage(msg: String?): String {
