@@ -3,6 +3,8 @@ package com.ryunen344.connpasssearch.application
 import android.app.Application
 import com.google.gson.Gson
 import com.ryunen344.connpasssearch.di.api.ApiModule
+import com.ryunen344.connpasssearch.di.repository.RepositoryModule
+import com.ryunen344.connpasssearch.di.viewModel.ViewModelModule
 import com.ryunen344.connpasssearch.loco.IntervalSendingScheduler
 import com.ryunen344.connpasssearch.loco.LogcatSender
 import com.ryunen344.connpasssearch.loco.log.ClickLog
@@ -26,7 +28,7 @@ class MyApplication : Application() {
             androidLogger(Level.DEBUG)
             androidContext(this@MyApplication)
             androidFileProperties()
-            modules(ApiModule)
+            modules(listOf(ApiModule, RepositoryModule, ViewModelModule))
         }
 
         //loco start

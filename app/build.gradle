@@ -92,4 +92,3 @@ dependencies {
     //LiveData
     androidTestImplementation 'androidx.arch.core:core-testing:2.1.0-beta01'
 }
-
