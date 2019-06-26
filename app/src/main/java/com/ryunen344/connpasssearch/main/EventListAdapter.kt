@@ -2,10 +2,12 @@ package com.ryunen344.connpasssearch.main
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.ryunen344.connpasssearch.data.Event
 import com.ryunen344.connpasssearch.util.LogUtil
 
-class EventListAdapter() : RecyclerView.Adapter<EventListAdapter.ViewHolder>() {
+class EventListAdapter : RecyclerView.Adapter<EventListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         LogUtil.d()
@@ -24,5 +26,20 @@ class EventListAdapter() : RecyclerView.Adapter<EventListAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    }
+
+    companion object {
+        @JvmStatic
+        @BindingAdapter("items")
+        fun RecyclerView.bindItems(items: List<Event>?) {
+
+            // まだ情報が取得できていない場合はitemsがnullになる可能性があるため、nullチェック必須。
+            if (items == null) {
+                return
+            }
+
+            //  RecyclerView.Adapterを継承しているので、RecyclerViewに設定されているadapterを取得できる
+            val adapter = adapter as EventListAdapter
+        }
     }
 }

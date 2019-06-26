@@ -17,10 +17,9 @@ class EventListViewModel(private val eventRepository: EventRepository) : ViewMod
         }
     }
 
-    val items: LiveData<MutableList<Event>> = MutableLiveData<MutableList<Event>>().apply {
-        LogUtil.d()
-        value = ArrayList(0)
-    }
+    private val _items = MutableLiveData<MutableList<Event>>()
+    val items: LiveData<MutableList<Event>>
+        get() = _items
 
     private val _dataLoading = MutableLiveData<Boolean>()
     val dataLoading: LiveData<Boolean>

@@ -7,7 +7,8 @@ import com.ryunen344.connpasssearch.main.eventList.EventListFragment
 import com.ryunen344.connpasssearch.main.search.SearchFragment
 import com.ryunen344.connpasssearch.util.LogUtil
 
-class MainSectionsPagerAdapter(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
+class MainSectionsPagerAdapter(fragmentManager: FragmentManager) :
+    FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
 
     override fun getItem(position: Int): Fragment {
