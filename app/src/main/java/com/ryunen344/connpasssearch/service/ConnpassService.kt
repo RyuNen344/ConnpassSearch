@@ -1,11 +1,11 @@
 package com.ryunen344.connpasssearch.service
 
 import com.ryunen344.connpasssearch.data.ConnpassEvent
-import retrofit2.Response
+import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 
 interface ConnpassService {
 
-    @GET
-    suspend fun eventList(): Response<ConnpassEvent>
+    @GET("event/")
+    fun eventList(): Deferred<ConnpassEvent>
 }

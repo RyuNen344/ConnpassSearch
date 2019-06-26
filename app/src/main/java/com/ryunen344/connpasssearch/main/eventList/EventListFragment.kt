@@ -45,7 +45,7 @@ class EventListFragment : Fragment() {
 
 
         binding.viewModel = eventListViewModel
-
+        eventListViewModel.onCreate()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
