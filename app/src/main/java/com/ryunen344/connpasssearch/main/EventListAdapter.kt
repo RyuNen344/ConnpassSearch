@@ -20,12 +20,12 @@ class EventListAdapter : RecyclerView.Adapter<EventListAdapter.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        LogUtil.d()
+        LogUtil.d("item count is " + eventList.size)
         return eventList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        LogUtil.d()
+        LogUtil.d("position is $position")
         holder.bind(eventList[position])
     }
 
@@ -45,6 +45,7 @@ class EventListAdapter : RecyclerView.Adapter<EventListAdapter.ViewHolder>() {
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(event: Event) {
+            LogUtil.d()
             binding.item = event
         }
 
@@ -56,10 +57,9 @@ class EventListAdapter : RecyclerView.Adapter<EventListAdapter.ViewHolder>() {
         fun RecyclerView.bindItems(items: MutableList<Event>?) {
             LogUtil.d()
 
-
             // まだ情報が取得できていない場合はitemsがnullになる可能性があるため、nullチェック必須。
             if (items == null) {
-                LogUtil.d()
+                LogUtil.d("items is null")
                 return
             }
 

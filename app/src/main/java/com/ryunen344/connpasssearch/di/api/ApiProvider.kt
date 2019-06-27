@@ -13,7 +13,6 @@ class ApiProvider {
             .client(OkHttpClient())
             .baseUrl("https://connpass.com/api/v1/")
             .addConverterFactory(GsonConverterFactory.create(Gson()))
-            //.addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
     }
 

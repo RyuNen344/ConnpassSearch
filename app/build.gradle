@@ -69,10 +69,9 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
     //retrofit2
-    def retrofit2_version = "2.5.0"
+    def retrofit2_version = "2.6.0"
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
-    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0'
 
     //loco
     def loco_version = "1.1.0"
