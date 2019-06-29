@@ -19,6 +19,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{item.title}"
                 android:textSize="25dp"
+                android:textColor="@android:color/black"
                 />
 
     </FrameLayout>

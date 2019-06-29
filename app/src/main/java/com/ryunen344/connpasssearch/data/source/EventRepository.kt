@@ -5,9 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.ryunen344.connpasssearch.data.ConnpassEvent
 import com.ryunen344.connpasssearch.di.api.ApiProvider
 import com.ryunen344.connpasssearch.util.LogUtil
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class EventRepository(private val apiProvider: ApiProvider) {
 
@@ -17,15 +14,14 @@ class EventRepository(private val apiProvider: ApiProvider) {
         LogUtil.d()
         var mutableLiveData: MutableLiveData<ConnpassEvent> = MutableLiveData()
         val response = connpassService.eventList()
-        GlobalScope.launch(Dispatchers.Main) {
-            if (response.isSuccessful) {
-                response.body()?.events?.size?.let { LogUtil.d("event list size is $it") }
-                mutableLiveData.value = response.body()
-            } else {
-                LogUtil.d(response.errorBody().toString())
-            }
+        //GlobalScope.launch(Dispatchers.Main) {
+        if (response.isSuccessful) {
+            response.body()?.events?.size?.let { LogUtil.d("event list size is $it") }
+            mutableLiveData.postValue(response.body())
+        } else {
+            LogUtil.d(response.errorBody().toString())
         }
-
+        //}
 
         return mutableLiveData
     }

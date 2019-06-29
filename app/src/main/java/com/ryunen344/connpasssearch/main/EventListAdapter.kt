@@ -32,6 +32,7 @@ class EventListAdapter : RecyclerView.Adapter<EventListAdapter.ViewHolder>() {
     fun update(eventList: MutableList<Event>) {
         LogUtil.d()
         this.eventList = eventList
+        notifyDataSetChanged()
     }
 
     class ViewHolder(
