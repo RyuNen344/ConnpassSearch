@@ -4,16 +4,11 @@
     <item
             android:id="@+id/navigation_home"
             android:icon="@drawable/ic_launcher_background"
-            android:title="いち"/>
-
-    <item
-            android:id="@+id/navigation_mention"
-            android:icon="@drawable/ic_launcher_background"
-            android:title="にー"/>
+            android:title="event list"/>
 
     <item
             android:id="@+id/navigation_search"
             android:icon="@drawable/ic_launcher_background"
-            android:title="さん"/>
+            android:title="search"/>
 
 </menu>

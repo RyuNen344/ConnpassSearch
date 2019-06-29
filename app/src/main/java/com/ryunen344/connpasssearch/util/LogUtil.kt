@@ -113,11 +113,12 @@ object LogUtil {
 
     private fun getTag(): String {
         val trace: StackTraceElement = Thread.currentThread().stackTrace[4]
+        val threadName = Thread.currentThread().name
         val cla: String = trace.className
         var pattern: Pattern = Pattern.compile("[\\.]")
         val splitStr: List<String> = pattern.split(cla).toList()
 
-        return "${splitStr[splitStr.size - 1]}#${trace.methodName}:${trace.lineNumber}"
+        return "${splitStr[splitStr.size - 1]}#${trace.methodName}:${trace.lineNumber} on {$threadName}"
     }
 
     private fun getMessage(msg: String?): String {

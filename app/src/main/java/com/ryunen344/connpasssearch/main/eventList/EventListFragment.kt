@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.ryunen344.connpasssearch.R.layout.fragment_event_list
 import com.ryunen344.connpasssearch.databinding.FragmentEventListBinding
 import com.ryunen344.connpasssearch.main.EventListAdapter
@@ -41,7 +43,17 @@ class EventListFragment : Fragment() {
             this.layoutManager = layoutManager
             this.setHasFixedSize(true)
             this.adapter = EventListAdapter()
+            this.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            (this.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         }
+
+        swipe_refresh.apply {
+            setOnRefreshListener {
+                LogUtil.d()
+                isRefreshing = false
+            }
+        }
+
 
 
         binding.viewModel = eventListViewModel

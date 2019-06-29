@@ -34,9 +34,6 @@ class MainFragment : Fragment() {
                 R.id.navigation_home -> {
                     view_pager_container.currentItem = 0
                 }
-                R.id.navigation_mention -> {
-                    view_pager_container.currentItem = 1
-                }
                 R.id.navigation_search -> {
                     view_pager_container.currentItem = 2
                 }

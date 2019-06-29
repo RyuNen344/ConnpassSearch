@@ -17,10 +17,6 @@ class MainSectionsPagerAdapter(fragmentManager: FragmentManager) :
                 //it.mPagerPosition = position
                 LogUtil.d()
             }
-            1 -> EventListFragment.newInstance().also {
-                //it.mPagerPosition = position
-                LogUtil.d()
-            }
             else -> SearchFragment.newInstance().also {
                 LogUtil.d()
             }
@@ -28,13 +24,12 @@ class MainSectionsPagerAdapter(fragmentManager: FragmentManager) :
     }
 
     override fun getCount(): Int {
-        return 3
+        return 2
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position) {
-            0 -> "timeline"
-            1 -> "mention"
+            0 -> "event list"
             else -> "search"
         }
     }
