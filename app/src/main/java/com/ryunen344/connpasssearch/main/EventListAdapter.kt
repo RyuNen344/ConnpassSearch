@@ -2,6 +2,9 @@ package com.ryunen344.connpasssearch.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.text.HtmlCompat
+import androidx.core.text.HtmlCompat.FROM_HTML_MODE_COMPACT
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -67,6 +70,20 @@ class EventListAdapter : RecyclerView.Adapter<EventListAdapter.ViewHolder>() {
             //  RecyclerView.Adapterを継承しているので、RecyclerViewに設定されているadapterを取得できる
             val adapter = adapter as EventListAdapter
             adapter.update(items)
+        }
+
+        @JvmStatic
+        @BindingAdapter("html")
+        fun setHtmlText(view: TextView, htmlSource: String) {
+            LogUtil.d()
+
+            // まだ情報が取得できていない場合はitemsがnullになる可能性があるため、nullチェック必須。
+            if (view == null || htmlSource == null) {
+                LogUtil.d("htmlSource is null")
+                return
+            }
+
+            view.text = HtmlCompat.fromHtml(htmlSource, FROM_HTML_MODE_COMPACT)
         }
     }
 }
