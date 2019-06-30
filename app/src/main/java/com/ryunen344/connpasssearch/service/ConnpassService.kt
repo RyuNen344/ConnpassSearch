@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface ConnpassService {
 
-    @GET("event/")
+    @GET("?count=100")
     suspend fun eventList(): Response<ConnpassEvent>
 }

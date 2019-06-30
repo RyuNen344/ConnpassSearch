@@ -11,7 +11,7 @@ class ApiProvider {
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
             .client(OkHttpClient())
-            .baseUrl("https://connpass.com/api/v1/")
+            .baseUrl("https://connpass.com/api/v1/event/")
             .addConverterFactory(GsonConverterFactory.create(Gson()))
             .build()
     }
