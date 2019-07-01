@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 
 class EventListViewModel(private val eventRepository: EventRepository) : ViewModel() {
 
+    var _items: MutableList<Event> = mutableListOf()
     val items: MutableLiveData<MutableList<Event>> = MutableLiveData()
     private var navigator: EventListNavigator? = null
 
@@ -18,8 +19,7 @@ class EventListViewModel(private val eventRepository: EventRepository) : ViewMod
 
     fun onCreate() = viewModelScope.launch(Dispatchers.IO) {
         LogUtil.d()
-        items.postValue(eventRepository.getEventList().value?.events)
-        LogUtil.d("post list")
+        loadEventList(0)
     }
 
 
@@ -34,6 +34,11 @@ class EventListViewModel(private val eventRepository: EventRepository) : ViewMod
         super.onCleared()
     }
 
+    fun loadMoreEventList(currentPage: Int) = viewModelScope.launch(Dispatchers.IO) {
+        LogUtil.d("currentPage is $currentPage")
+        loadEventList(currentPage)
+    }
+
     fun itemClick(eventId: Int) {
         LogUtil.d("event id = $eventId")
         navigator?.onStartEventDetail(eventId)
@@ -41,8 +46,18 @@ class EventListViewModel(private val eventRepository: EventRepository) : ViewMod
 
     fun setNavigator(navigator: EventListNavigator) {
         LogUtil.d()
-        LogUtil.d(navigator.toString())
         this.navigator = navigator
     }
+
+    private suspend fun loadEventList(currentPage: Int) {
+        LogUtil.d()
+        eventRepository.getEventList(currentPage).value?.events.let {
+            _items.addAll(it!!)
+            items.postValue(_items)
+            LogUtil.d("post list")
+        }
+    }
+
+
 
 }

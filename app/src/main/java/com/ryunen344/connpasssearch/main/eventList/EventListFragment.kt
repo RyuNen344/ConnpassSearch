@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.ryunen344.connpasssearch.R.layout.fragment_event_list
+import com.ryunen344.connpasssearch.behavior.EndlessScrollListener
 import com.ryunen344.connpasssearch.databinding.FragmentEventListBinding
 import com.ryunen344.connpasssearch.main.EventListAdapter
 import com.ryunen344.connpasssearch.util.LogUtil
@@ -45,6 +46,13 @@ class EventListFragment : Fragment() {
             this.adapter = EventListAdapter(eventListViewModel)
             this.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             (this.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+            this.addOnScrollListener(object : EndlessScrollListener(layoutManager) {
+                override fun onLoadMore(currentPage: Int) {
+                    LogUtil.d()
+                    eventListViewModel.loadMoreEventList(currentPage)
+                }
+
+            })
         }
 
         swipe_refresh.apply {
