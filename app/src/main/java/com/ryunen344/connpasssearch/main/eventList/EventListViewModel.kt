@@ -11,7 +11,10 @@ import kotlinx.coroutines.launch
 
 class EventListViewModel(private val eventRepository: EventRepository) : ViewModel() {
 
-    val items: MutableLiveData<MutableList<Event>> = MutableLiveData<MutableList<Event>>()
+    val items: MutableLiveData<MutableList<Event>> = MutableLiveData()
+    private var navigator: EventListNavigator? = null
+
+
 
     fun onCreate() = viewModelScope.launch(Dispatchers.IO) {
         LogUtil.d()
@@ -20,9 +23,26 @@ class EventListViewModel(private val eventRepository: EventRepository) : ViewMod
     }
 
 
+    fun onActivityDestroyed() {
+        LogUtil.d()
+        // Clear references to avoid potential memory leaks.
+        navigator = null
+    }
+
     override fun onCleared() {
         LogUtil.d()
         super.onCleared()
+    }
+
+    fun itemClick(eventId: Int) {
+        LogUtil.d("event id = $eventId")
+        navigator?.onStartEventDetail(eventId)
+    }
+
+    fun setNavigator(navigator: EventListNavigator) {
+        LogUtil.d()
+        LogUtil.d(navigator.toString())
+        this.navigator = navigator
     }
 
 }

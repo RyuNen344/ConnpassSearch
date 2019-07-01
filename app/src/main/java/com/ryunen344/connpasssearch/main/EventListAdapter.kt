@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ryunen344.connpasssearch.R
 import com.ryunen344.connpasssearch.data.Event
 import com.ryunen344.connpasssearch.databinding.ItemEventBinding
+import com.ryunen344.connpasssearch.main.eventList.EventListViewModel
 import com.ryunen344.connpasssearch.util.LogUtil
 
-class EventListAdapter : RecyclerView.Adapter<EventListAdapter.ViewHolder>() {
+class EventListAdapter(private val eventListViewModel: EventListViewModel) :
+    RecyclerView.Adapter<EventListAdapter.ViewHolder>() {
 
     private var eventList: MutableList<Event> = mutableListOf()
 
@@ -29,7 +31,13 @@ class EventListAdapter : RecyclerView.Adapter<EventListAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         LogUtil.d("position is $position")
+        //ClickListenerのセットはココ！
+        holder.binding.root.setOnClickListener {
+            eventListViewModel.itemClick(eventList[position].event_id)
+        }
+
         holder.bind(eventList[position])
+
     }
 
     fun update(eventList: MutableList<Event>) {
@@ -40,7 +48,7 @@ class EventListAdapter : RecyclerView.Adapter<EventListAdapter.ViewHolder>() {
 
     class ViewHolder(
         private val parent: ViewGroup,
-        private val binding: ItemEventBinding = DataBindingUtil.inflate(
+        val binding: ItemEventBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
             R.layout.item_event,
             parent,

@@ -14,12 +14,12 @@ import com.ryunen344.connpasssearch.databinding.FragmentEventListBinding
 import com.ryunen344.connpasssearch.main.EventListAdapter
 import com.ryunen344.connpasssearch.util.LogUtil
 import kotlinx.android.synthetic.main.fragment_event_list.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EventListFragment : Fragment() {
 
     private lateinit var binding: FragmentEventListBinding
-    val eventListViewModel: EventListViewModel by viewModel()
+    private val eventListViewModel: EventListViewModel by sharedViewModel()
 
     companion object {
         fun newInstance() = EventListFragment()
@@ -42,7 +42,7 @@ class EventListFragment : Fragment() {
         main_event_list.apply {
             this.layoutManager = layoutManager
             this.setHasFixedSize(true)
-            this.adapter = EventListAdapter()
+            this.adapter = EventListAdapter(eventListViewModel)
             this.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             (this.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         }
