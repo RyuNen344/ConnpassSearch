@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.ryunen344.connpasssearch.R
@@ -29,38 +30,49 @@ class MainFragment : Fragment() {
         setHasOptionsMenu(true)
 
         //configure timeline_navigation bar
-        activity?.navigation!!.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.navigation_home -> {
-                    view_pager_container.currentItem = 0
+        activity?.let { it ->
+            it.navigation.setOnNavigationItemSelectedListener { item ->
+                when (item.itemId) {
+                    R.id.navigation_home -> {
+                        view_pager_container.currentItem = 0
+                        it.toolbar.title = mSectionsPagerAdapter.getPageTitle(0)
+                    }
+                    R.id.navigation_search -> {
+                        view_pager_container.currentItem = 1
+                        it.toolbar.title = mSectionsPagerAdapter.getPageTitle(1)
+                    }
                 }
-                R.id.navigation_search -> {
-                    view_pager_container.currentItem = 2
-                }
+                false
             }
-            false
         }
+
 
         root.view_pager_container.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-
+                LogUtil.d()
             }
 
             override fun onPageSelected(position: Int) {
+                LogUtil.d()
 
                 if (prevMenuItem != null) {
                     prevMenuItem?.isChecked = false
                 } else {
-                    activity?.navigation!!.menu.getItem(0).isChecked = false
+                    activity?.let {
+                        it.navigation.menu[0].isChecked = false
+                        it.toolbar.title = mSectionsPagerAdapter.getPageTitle(0)
+                    }
                 }
 
-                activity?.navigation!!.menu.getItem(position).isChecked = true
-                prevMenuItem = activity?.navigation!!.menu.getItem(position)
-
+                activity?.let {
+                    it.navigation.menu[position].isChecked = true
+                    prevMenuItem = it.navigation.menu[position]
+                }
             }
 
             override fun onPageScrollStateChanged(state: Int) {
+                LogUtil.d()
             }
 
         })
@@ -74,6 +86,9 @@ class MainFragment : Fragment() {
         mSectionsPagerAdapter = MainSectionsPagerAdapter(fragmentManager!!)
         view_pager_container.adapter = mSectionsPagerAdapter
         view_pager_container.offscreenPageLimit = mSectionsPagerAdapter.count - 1
+        activity?.let {
+            it.toolbar.title = mSectionsPagerAdapter.getPageTitle(0)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

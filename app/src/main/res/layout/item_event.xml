@@ -30,6 +30,7 @@
                     android:text="@{item.title}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
                     android:textColor="@android:color/black"
+                    android:maxLines="1"
                     />
 
             <TextView
@@ -40,6 +41,7 @@
                     android:text="@{item.catch}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textColor="@android:color/black"
+                    android:maxLines="2"
                     />
 
 

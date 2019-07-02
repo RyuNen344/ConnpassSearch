@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity(), EventListNavigator {
         LogUtil.d()
         Loco.send(ScreenLog(this::class.java.simpleName))
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
 
         eventListViewModel.setNavigator(this)
 
