@@ -51,8 +51,8 @@ class EventListViewModel(private val eventRepository: EventRepository) : ViewMod
 
     private suspend fun loadEventList(currentPage: Int) {
         LogUtil.d()
-        eventRepository.getEventList(currentPage).value?.events.let {
-            _items.addAll(it!!)
+        eventRepository.getEventList(currentPage).value?.events?.let {
+            _items.addAll(it)
             items.postValue(_items)
             LogUtil.d("post list")
         }

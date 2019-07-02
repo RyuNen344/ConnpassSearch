@@ -31,12 +31,13 @@ class EventListAdapter(private val eventListViewModel: EventListViewModel) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         LogUtil.d("position is $position")
-        //ClickListenerのセットはココ！
+        //set click listener
         holder.binding.root.setOnClickListener {
             eventListViewModel.itemClick(eventList[position].event_id)
         }
 
-        holder.bind(eventList[position])
+        holder.binding.item = eventList[position]
+        holder.binding.executePendingBindings()
 
     }
 
@@ -69,11 +70,8 @@ class EventListAdapter(private val eventListViewModel: EventListViewModel) :
         fun RecyclerView.bindItems(items: MutableList<Event>?) {
             LogUtil.d()
 
-            // まだ情報が取得できていない場合はitemsがnullになる可能性があるため、nullチェック必須。
-            if (items == null) {
-                LogUtil.d("items is null")
-                return
-            }
+            //items is nullable, so check
+            items ?: return
 
             //  RecyclerView.Adapterを継承しているので、RecyclerViewに設定されているadapterを取得できる
             val adapter = adapter as EventListAdapter
@@ -84,12 +82,6 @@ class EventListAdapter(private val eventListViewModel: EventListViewModel) :
         @BindingAdapter("html")
         fun setHtmlText(view: TextView, htmlSource: String) {
             LogUtil.d()
-
-            // まだ情報が取得できていない場合はitemsがnullになる可能性があるため、nullチェック必須。
-            if (view == null || htmlSource == null) {
-                LogUtil.d("htmlSource is null")
-                return
-            }
 
             view.text = HtmlCompat.fromHtml(htmlSource, FROM_HTML_MODE_COMPACT)
         }
