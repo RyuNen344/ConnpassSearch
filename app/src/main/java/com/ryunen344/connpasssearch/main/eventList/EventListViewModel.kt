@@ -15,8 +15,6 @@ class EventListViewModel(private val eventRepository: EventRepository) : ViewMod
     val items: MutableLiveData<MutableList<Event>> = MutableLiveData()
     private var navigator: EventListNavigator? = null
 
-
-
     fun onCreate() = viewModelScope.launch(Dispatchers.IO) {
         LogUtil.d()
         loadEventList(0)
@@ -41,7 +39,9 @@ class EventListViewModel(private val eventRepository: EventRepository) : ViewMod
 
     fun itemClick(eventId: Int) {
         LogUtil.d("event id = $eventId")
-        navigator?.onStartEventDetail(eventId)
+        navigator?.let {
+            it.onStartEventDetail(eventId)
+        }
     }
 
     fun setNavigator(navigator: EventListNavigator) {

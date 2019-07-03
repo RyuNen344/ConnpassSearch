@@ -1,6 +1,10 @@
 package com.ryunen344.connpasssearch.main
 
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ClickableSpan
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
@@ -38,7 +42,6 @@ class EventListAdapter(private val eventListViewModel: EventListViewModel) :
 
         holder.binding.item = eventList[position]
         holder.binding.executePendingBindings()
-
     }
 
     fun update(eventList: MutableList<Event>) {
@@ -65,6 +68,7 @@ class EventListAdapter(private val eventListViewModel: EventListViewModel) :
     }
 
     companion object {
+
         @JvmStatic
         @BindingAdapter("items")
         fun RecyclerView.bindItems(items: MutableList<Event>?) {
@@ -76,6 +80,22 @@ class EventListAdapter(private val eventListViewModel: EventListViewModel) :
             //  RecyclerView.Adapterを継承しているので、RecyclerViewに設定されているadapterを取得できる
             val adapter = adapter as EventListAdapter
             adapter.update(items)
+        }
+
+        @JvmStatic
+        @BindingAdapter("hashTag")
+        fun setHashTag(view: TextView, hashTagSource: String) {
+            LogUtil.d()
+
+            var spannableString = SpannableString("#$hashTagSource")
+            spannableString.setSpan(object : ClickableSpan() {
+                override fun onClick(textView: View) {
+                    LogUtil.d()
+                    //TODO:暗黙的intentでTwitterアプリの検索呼び出し(可能なら)
+                }
+            }, 0, hashTagSource.length + 1, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+
+            view.text = spannableString
         }
 
         @JvmStatic

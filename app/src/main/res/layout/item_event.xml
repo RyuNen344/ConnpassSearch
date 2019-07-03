@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         >
 
     <data>
@@ -39,11 +40,36 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/event_title"
                     android:text="@{item.catch}"
+                    android:visibility="@{item.catch.length == 0 ? android.view.View.GONE : android.view.View.VISIBLE}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textColor="@android:color/black"
                     android:maxLines="2"
                     />
 
+            <TextView
+                    android:id="@+id/tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/event_catch"
+                    android:text="tag :"
+                    android:visibility="@{item.hash_tag.length == 0 ? android.view.View.GONE : android.view.View.VISIBLE}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@android:color/black"
+                    android:maxLines="1"
+                    />
+
+            <TextView
+                    android:id="@+id/event_hash_tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/event_catch"
+                    android:layout_toEndOf="@+id/tag"
+                    app:hashTag="@{item.hash_tag}"
+                    android:visibility="@{item.hash_tag.length == 0 ? android.view.View.GONE : android.view.View.VISIBLE}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@android:color/black"
+                    android:maxLines="3"
+                    />
 
         </RelativeLayout>
 
