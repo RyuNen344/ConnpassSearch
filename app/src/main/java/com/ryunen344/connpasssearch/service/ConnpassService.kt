@@ -9,4 +9,7 @@ interface ConnpassService {
 
     @GET("event/")
     suspend fun eventList(@Query("count") count: Int, @Query("start") start: Int): Response<ConnpassEvent>
+
+    @GET("event/")
+    suspend fun event(@Query("event_id") event_id: Int): Response<ConnpassEvent>
 }

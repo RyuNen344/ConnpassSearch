@@ -47,10 +47,35 @@
                     />
 
             <TextView
-                    android:id="@+id/tag"
+                    android:id="@+id/place"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/event_catch"
+                    android:text="place :"
+                    android:visibility="@{item.place.length == 0 ? android.view.View.GONE : android.view.View.VISIBLE}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@android:color/black"
+                    android:maxLines="1"
+                    />
+
+            <TextView
+                    android:id="@+id/event_place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/event_catch"
+                    android:layout_toEndOf="@+id/place"
+                    android:text="@{item.place}"
+                    android:visibility="@{item.place.length == 0 ? android.view.View.GONE : android.view.View.VISIBLE}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                    android:textColor="@android:color/black"
+                    android:maxLines="3"
+                    />
+
+            <TextView
+                    android:id="@+id/tag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/place"
                     android:text="tag :"
                     android:visibility="@{item.hash_tag.length == 0 ? android.view.View.GONE : android.view.View.VISIBLE}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
@@ -62,7 +87,7 @@
                     android:id="@+id/event_hash_tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/event_catch"
+                    android:layout_below="@id/event_place"
                     android:layout_toEndOf="@+id/tag"
                     app:hashTag="@{item.hash_tag}"
                     android:visibility="@{item.hash_tag.length == 0 ? android.view.View.GONE : android.view.View.VISIBLE}"

@@ -16,10 +16,26 @@ class EventRepository(private val apiProvider: ApiProvider) {
         LogUtil.d()
         var mutableLiveData: MutableLiveData<ConnpassEvent> = MutableLiveData()
         runBlocking {
-            LogUtil.w("currentPage is $currentPage")
+            LogUtil.d("currentPage is $currentPage")
             var response: Response<ConnpassEvent> = connpassService.eventList(100, 100 * currentPage)
             if (response.isSuccessful) {
                 response.body()?.events?.size?.let { LogUtil.d("event list size is $it") }
+                mutableLiveData.postValue(response.body()).also { LogUtil.d("post data") }
+            } else {
+                LogUtil.d(response.errorBody().toString())
+            }
+        }
+        return mutableLiveData
+    }
+
+    suspend fun getEvent(eventId: Int): LiveData<ConnpassEvent> {
+        LogUtil.d("event id = $eventId")
+        var mutableLiveData: MutableLiveData<ConnpassEvent> = MutableLiveData()
+        if (eventId == 0) return mutableLiveData
+        runBlocking {
+            LogUtil.d()
+            var response: Response<ConnpassEvent> = connpassService.event(eventId)
+            if (response.isSuccessful) {
                 mutableLiveData.postValue(response.body()).also { LogUtil.d("post data") }
             } else {
                 LogUtil.d(response.errorBody().toString())
