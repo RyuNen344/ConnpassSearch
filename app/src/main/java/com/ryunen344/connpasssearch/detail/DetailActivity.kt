@@ -25,6 +25,15 @@ class DetailActivity : AppCompatActivity(), DetailNavigator {
         Loco.send(ScreenLog(this::class.java.simpleName))
         setContentView(R.layout.activity_detail)
 
+        // set toolbar and actionbar
+        toolbar.title = "Event Detail"
+        toolbar.setNavigationOnClickListener {
+            LogUtil.d()
+            onBackPressed()
+        }
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         eventId = intent.getIntExtra(INTENT_KEY_EVENT_ID, 0)
         detailViewModel.eventId = eventId
 
@@ -41,5 +50,16 @@ class DetailActivity : AppCompatActivity(), DetailNavigator {
     override fun onDestroy() {
         detailViewModel.onActivityDestroyed()
         super.onDestroy()
+    }
+
+    override fun onBackPressed() {
+        LogUtil.d()
+        super.onBackPressed()
+    }
+
+    override fun onSupportNavigateUp() : Boolean {
+        LogUtil.d()
+        onBackPressed()
+        return true
     }
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         >
 
@@ -11,25 +10,27 @@
                 type="com.ryunen344.connpasssearch.detail.DetailViewModel"/>
     </data>
 
-    <RelativeLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:context=".detail.DetaillFragment"
             android:theme="@style/AppTheme.NoActionBar"
             >
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/swipe_refresh"
+        <androidx.core.widget.NestedScrollView
+                android:id="@+id/eventDetailNestedScrollView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:fillViewport="true">
 
-            <androidx.core.widget.NestedScrollView
-                    android:id="@+id/eventDetailNestedScrollView"
+            <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fillViewport="true"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/list_item_padding"
+                    android:paddingLeft="@dimen/list_item_padding"
+                    android:paddingRight="@dimen/list_item_padding"
+                    android:paddingTop="@dimen/list_item_padding">
 
                 <TextView
                         android:id="@+id/event_title"
@@ -39,10 +40,29 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
                         android:textColor="@android:color/black"/>
 
-            </androidx.core.widget.NestedScrollView>
+                <TextView
+                        android:id="@+id/event_catch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/event_title"
+                        android:text="@{viewModel.items.catch}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="@android:color/black"/>
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                <TextView
+                        android:id="@+id/event_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/event_catch"
+                        app:html="@{viewModel.items.description}"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="@android:color/black"/>
 
-    </RelativeLayout>
+            </RelativeLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </layout>

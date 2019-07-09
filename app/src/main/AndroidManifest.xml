@@ -23,7 +23,7 @@
         </activity>
         <activity
                 android:name="com.ryunen344.connpasssearch.detail.DetailActivity"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:parentActivityName="com.ryunen344.connpasssearch.main.MainActivity">
         </activity>
     </application>
 

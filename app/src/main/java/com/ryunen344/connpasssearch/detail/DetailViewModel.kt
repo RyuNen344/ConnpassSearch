@@ -40,6 +40,7 @@ class DetailViewModel(private val eventRepository: EventRepository) : ViewModel(
     private suspend fun loadEvent() {
         LogUtil.d()
         eventRepository.getEvent(eventId).value?.events?.let {
+            LogUtil.d(it.toString())
             items.postValue(it.first())
             LogUtil.d("post data")
         }
