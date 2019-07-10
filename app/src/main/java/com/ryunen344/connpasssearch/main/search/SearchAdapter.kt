@@ -1,17 +1,17 @@
-package com.ryunen344.connpasssearch.main
+package com.ryunen344.connpasssearch.main.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ryunen344.connpasssearch.R
 import com.ryunen344.connpasssearch.data.Event
 import com.ryunen344.connpasssearch.databinding.ItemEventBinding
-import com.ryunen344.connpasssearch.main.eventList.EventListViewModel
 import com.ryunen344.connpasssearch.util.LogUtil
 
-class EventListAdapter(private val eventListViewModel: EventListViewModel) :
-    RecyclerView.Adapter<EventListAdapter.ViewHolder>() {
+class SearchAdapter(private val searchViewModel: SearchViewModel) :
+    RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
 
     private var eventList: MutableList<Event> = mutableListOf()
 
@@ -29,7 +29,7 @@ class EventListAdapter(private val eventListViewModel: EventListViewModel) :
         LogUtil.d("position is $position")
         //set click listener
         holder.binding.root.setOnClickListener {
-            eventListViewModel.itemClick(eventList[position].event_id)
+            searchViewModel.itemClick(eventList[position].event_id)
         }
 
         holder.binding.item = eventList[position]
@@ -61,6 +61,17 @@ class EventListAdapter(private val eventListViewModel: EventListViewModel) :
 
     companion object {
 
+        @JvmStatic
+        @BindingAdapter("items_search")
+        fun RecyclerView.bindItems(items: MutableList<Event>?) {
+            LogUtil.d()
 
+            //items is nullable, so check
+            items ?: return
+
+            //  RecyclerView.Adapterを継承しているので、RecyclerViewに設定されているadapterを取得できる
+            val adapter = adapter as SearchAdapter
+            adapter.update(items)
+        }
     }
 }

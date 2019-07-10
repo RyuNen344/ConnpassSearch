@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import com.ryunen344.connpasssearch.R.layout.fragment_event_list
 import com.ryunen344.connpasssearch.behavior.EndlessScrollListener
 import com.ryunen344.connpasssearch.databinding.FragmentEventListBinding
-import com.ryunen344.connpasssearch.main.EventListAdapter
 import com.ryunen344.connpasssearch.util.LogUtil
 import kotlinx.android.synthetic.main.fragment_event_list.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel

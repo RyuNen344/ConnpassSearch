@@ -7,24 +7,8 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.ryunen344.connpasssearch.data.Event
-import com.ryunen344.connpasssearch.main.EventListAdapter
 
 object BindingAdapterUtil {
-
-    @JvmStatic
-    @BindingAdapter("items")
-    fun RecyclerView.bindItems(items : MutableList<Event>?) {
-        LogUtil.d()
-
-        //items is nullable, so check
-        items ?: return
-
-        //  RecyclerView.Adapterを継承しているので、RecyclerViewに設定されているadapterを取得できる
-        val adapter = adapter as EventListAdapter
-        adapter.update(items)
-    }
 
     @JvmStatic
     @BindingAdapter("hashTag")

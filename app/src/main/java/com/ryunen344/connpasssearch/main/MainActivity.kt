@@ -9,19 +9,22 @@ import com.ryunen344.connpasssearch.detail.DetailActivity.Companion.INTENT_KEY_E
 import com.ryunen344.connpasssearch.loco.log.ScreenLog
 import com.ryunen344.connpasssearch.main.eventList.EventListNavigator
 import com.ryunen344.connpasssearch.main.eventList.EventListViewModel
+import com.ryunen344.connpasssearch.main.search.SearchNavigator
+import com.ryunen344.connpasssearch.main.search.SearchViewModel
 import com.ryunen344.connpasssearch.util.LogUtil
 import com.ryunen344.connpasssearch.util.replaceFragmentInActivity
 import com.sys1yagi.loco.core.Loco
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity(), EventListNavigator {
+class MainActivity : AppCompatActivity(), EventListNavigator, SearchNavigator {
 
     companion object {
         private const val REQUEST_CODE = 1
     }
 
     private val eventListViewModel: EventListViewModel by viewModel()
+    private val searchViewModel: SearchViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +34,7 @@ class MainActivity : AppCompatActivity(), EventListNavigator {
         setSupportActionBar(toolbar)
 
         eventListViewModel.setNavigator(this)
+        searchViewModel.setNavigator(this)
 
         var mainFragment: MainFragment? = supportFragmentManager.findFragmentById(mainFrame.id) as MainFragment?
             ?: MainFragment.newInstance().also {
@@ -41,6 +45,7 @@ class MainActivity : AppCompatActivity(), EventListNavigator {
 
     override fun onDestroy() {
         eventListViewModel.onActivityDestroyed()
+        searchViewModel.onActivityDestroyed()
         super.onDestroy()
     }
 

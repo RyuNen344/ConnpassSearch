@@ -44,6 +44,22 @@ class EventRepository(private val apiProvider: ApiProvider) {
         return mutableLiveData
     }
 
+    suspend fun searchEventList(keyword: String, currentPage: Int): LiveData<ConnpassEvent> {
+        LogUtil.d()
+        var mutableLiveData: MutableLiveData<ConnpassEvent> = MutableLiveData()
+        runBlocking {
+            LogUtil.d("currentPage is $currentPage")
+            var response: Response<ConnpassEvent> = connpassService.search(keyword, 100, 100 * currentPage)
+            if (response.isSuccessful) {
+                response.body()?.events?.size?.let { LogUtil.d("event list size is $it") }
+                mutableLiveData.postValue(response.body()).also { LogUtil.d("post data") }
+            } else {
+                LogUtil.d(response.errorBody().toString())
+            }
+        }
+        return mutableLiveData
+    }
+
 }
 
 
