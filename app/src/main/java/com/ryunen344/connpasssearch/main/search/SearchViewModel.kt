@@ -61,7 +61,17 @@ class SearchViewModel(private val eventRepository: EventRepository) : ViewModel(
         LogUtil.d()
         viewModelScope.launch(Dispatchers.IO) {
             LogUtil.d()
+            LogUtil.d("keyword is $keyword")
             searchEventList(keyword, 0)
+        }
+    }
+
+    fun clearEvent() {
+        LogUtil.d()
+        if (_items.size != 0) {
+            _items.clear()
+            items.postValue(_items)
+            LogUtil.d("reset list")
         }
     }
 }

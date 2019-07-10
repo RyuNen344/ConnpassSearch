@@ -15,9 +15,18 @@ import com.ryunen344.connpasssearch.behavior.EndlessScrollListener
 import com.ryunen344.connpasssearch.databinding.FragmentSearchBinding
 import com.ryunen344.connpasssearch.util.LogUtil
 import kotlinx.android.synthetic.main.fragment_search.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancelChildren
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import kotlin.coroutines.CoroutineContext
 
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(), CoroutineScope {
+
+    private val job = SupervisorJob()
+    override val coroutineContext: CoroutineContext
+        get() = Dispatchers.Main + job
 
     private lateinit var binding: FragmentSearchBinding
     private val searchViewModel: SearchViewModel by sharedViewModel()
@@ -64,7 +73,14 @@ class SearchFragment : Fragment() {
 
         searchViewModel.keyword.observe(this, Observer {
             if (it.isNotEmpty()) {
+//                launch {
+//                    delay(5000)
+//                    LogUtil.d("keyword is $it")
+//                    searchViewModel.searchEvent(it)
+//                }
                 searchViewModel.searchEvent(it)
+            } else {
+                searchViewModel.clearEvent()
             }
         })
 
@@ -75,6 +91,12 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         LogUtil.d()
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onDestroy() {
+        LogUtil.d()
+        super.onDestroy()
+        coroutineContext.cancelChildren()
     }
 
 
