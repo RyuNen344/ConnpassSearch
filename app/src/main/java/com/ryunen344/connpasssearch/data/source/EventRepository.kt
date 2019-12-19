@@ -3,14 +3,15 @@ package com.ryunen344.connpasssearch.data.source
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ryunen344.connpasssearch.data.ConnpassEvent
-import com.ryunen344.connpasssearch.di.api.ApiProvider
+import com.ryunen344.connpasssearch.service.ConnpassService
 import com.ryunen344.connpasssearch.util.LogUtil
 import kotlinx.coroutines.runBlocking
 import retrofit2.Response
+import retrofit2.Retrofit
 
-class EventRepository(private val apiProvider: ApiProvider) {
+class EventRepository {
 
-    private var connpassService = apiProvider.provideConnpassService()
+    private var connpassService : ConnpassService = Retrofit.Builder().build().create(ConnpassService::class.java)
 
     suspend fun getEventList(currentPage: Int): LiveData<ConnpassEvent> {
         LogUtil.d()
@@ -59,7 +60,6 @@ class EventRepository(private val apiProvider: ApiProvider) {
         }
         return mutableLiveData
     }
-
 }
 
 

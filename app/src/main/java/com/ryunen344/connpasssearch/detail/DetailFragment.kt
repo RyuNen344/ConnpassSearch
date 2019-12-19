@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.ryunen344.connpasssearch.R.layout.fragment_detail
+import androidx.fragment.app.viewModels
+import com.ryunen344.connpasssearch.R
 import com.ryunen344.connpasssearch.databinding.FragmentDetailBinding
 import com.ryunen344.connpasssearch.util.LogUtil
 import kotlinx.android.synthetic.main.fragment_event_list.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class DetailFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailBinding
-    private val detailViewModel: DetailViewModel by sharedViewModel()
+    private val detailViewModel: DetailViewModel by viewModels()
 
     companion object {
         fun newInstance() = DetailFragment()
@@ -23,7 +23,7 @@ class DetailFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         LogUtil.d()
-        binding = DataBindingUtil.inflate(inflater, fragment_detail, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
         binding.lifecycleOwner = this
         setHasOptionsMenu(true)
 

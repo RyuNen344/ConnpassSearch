@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +20,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import kotlin.coroutines.CoroutineContext
 
 class SearchFragment : Fragment(), CoroutineScope {
@@ -29,7 +29,7 @@ class SearchFragment : Fragment(), CoroutineScope {
         get() = Dispatchers.Main + job
 
     private lateinit var binding: FragmentSearchBinding
-    private val searchViewModel: SearchViewModel by sharedViewModel()
+    private val searchViewModel: SearchViewModel by viewModels()
 
     companion object {
         fun newInstance() = SearchFragment()
@@ -71,7 +71,7 @@ class SearchFragment : Fragment(), CoroutineScope {
             }
         }
 
-        searchViewModel.keyword.observe(this, Observer {
+        searchViewModel.keyword.observe(this.viewLifecycleOwner, Observer {
             if (it.isNotEmpty()) {
 //                launch {
 //                    delay(5000)

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -14,12 +15,11 @@ import com.ryunen344.connpasssearch.behavior.EndlessScrollListener
 import com.ryunen344.connpasssearch.databinding.FragmentEventListBinding
 import com.ryunen344.connpasssearch.util.LogUtil
 import kotlinx.android.synthetic.main.fragment_event_list.*
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EventListFragment : Fragment() {
 
     private lateinit var binding: FragmentEventListBinding
-    private val eventListViewModel: EventListViewModel by sharedViewModel()
+    private val eventListViewModel: EventListViewModel by viewModels()
 
     companion object {
         fun newInstance() = EventListFragment()

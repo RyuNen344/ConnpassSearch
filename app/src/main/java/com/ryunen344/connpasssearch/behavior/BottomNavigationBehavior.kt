@@ -13,7 +13,6 @@ import com.ryunen344.connpasssearch.util.LogUtil
 import kotlin.math.max
 import kotlin.math.min
 
-
 class BottomNavigationBehavior<V : View>(context: Context?, attrs: AttributeSet? = null) :
     CoordinatorLayout.Behavior<V>(context, attrs) {
 

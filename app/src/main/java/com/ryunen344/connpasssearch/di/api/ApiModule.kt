@@ -1,7 +1,16 @@
 package com.ryunen344.connpasssearch.di.api
 
-import org.koin.dsl.module
+import com.ryunen344.connpasssearch.service.ConnpassService
+import dagger.Module
+import dagger.Provides
+import retrofit2.Retrofit
+import javax.inject.Singleton
 
-val ApiModule = module {
-    single { ApiProvider() }
+@Module
+class ApiModule {
+
+    @Singleton
+    @Provides
+    fun provideConnpassService(retrofit: Retrofit) : ConnpassService = retrofit.create(ConnpassService::class.java)
+
 }

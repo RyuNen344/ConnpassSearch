@@ -1,8 +1,15 @@
 package com.ryunen344.connpasssearch.di.repository
 
 import com.ryunen344.connpasssearch.data.source.EventRepository
-import org.koin.dsl.module
+import dagger.Module
+import dagger.Provides
+import javax.inject.Singleton
 
-val RepositoryModule = module {
-    single { EventRepository(get()) }
+@Module
+class RepositoryModule {
+
+    @Singleton
+    @Provides
+    fun provideEventRepository() = EventRepository()
+
 }

@@ -9,7 +9,6 @@ import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.ryunen344.connpasssearch.R
-import com.ryunen344.connpasssearch.R.layout.fragment_main
 import com.ryunen344.connpasssearch.util.LogUtil
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -26,7 +25,7 @@ class MainFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         LogUtil.d()
-        var root: View = inflater.inflate(fragment_main, container, false)
+        var root: View = inflater.inflate(R.layout.fragment_main, container, false)
         setHasOptionsMenu(true)
 
         //configure timeline_navigation bar
@@ -96,6 +95,4 @@ class MainFragment : Fragment() {
         LogUtil.d()
         super.onViewCreated(view, savedInstanceState)
     }
-
-
 }

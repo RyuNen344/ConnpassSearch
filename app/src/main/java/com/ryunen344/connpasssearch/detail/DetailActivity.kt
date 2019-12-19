@@ -1,6 +1,7 @@
 package com.ryunen344.connpasssearch.detail
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.ryunen344.connpasssearch.R
 import com.ryunen344.connpasssearch.loco.log.ScreenLog
@@ -8,7 +9,6 @@ import com.ryunen344.connpasssearch.util.LogUtil
 import com.ryunen344.connpasssearch.util.replaceFragmentInActivity
 import com.sys1yagi.loco.core.Loco
 import kotlinx.android.synthetic.main.activity_detail.*
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailActivity : AppCompatActivity(), DetailNavigator {
 
@@ -16,7 +16,7 @@ class DetailActivity : AppCompatActivity(), DetailNavigator {
         const val INTENT_KEY_EVENT_ID: String = "key_event_id"
     }
 
-    private val detailViewModel: DetailViewModel by viewModel()
+    private val detailViewModel: DetailViewModel by viewModels()
     private var eventId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
