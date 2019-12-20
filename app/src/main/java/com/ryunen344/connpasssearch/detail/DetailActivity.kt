@@ -3,6 +3,7 @@ package com.ryunen344.connpasssearch.detail
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.commit
 import com.ryunen344.connpasssearch.R
 import com.ryunen344.connpasssearch.loco.log.ScreenLog
 import com.ryunen344.connpasssearch.util.LogUtil
@@ -39,12 +40,9 @@ class DetailActivity : AppCompatActivity(), DetailNavigator {
 
         detailViewModel.setNavigator(this)
 
-        var detailFragment: DetailFragment? = supportFragmentManager.findFragmentById(detailFrame.id) as DetailFragment?
-            ?: DetailFragment.newInstance().also {
-                LogUtil.d()
-                replaceFragmentInActivity(supportFragmentManager, it, detailFrame.id)
-            }
-
+        supportFragmentManager.commit {
+            replace(R.id.detailFrame, DetailFragment())
+        }
     }
 
     override fun onDestroy() {
