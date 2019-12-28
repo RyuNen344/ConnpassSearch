@@ -25,7 +25,11 @@ class EventListFragment : Fragment() {
         fun newInstance() = EventListFragment()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         LogUtil.d()
         binding = DataBindingUtil.inflate(inflater, fragment_event_list, container, false)
         binding.lifecycleOwner = this
@@ -42,7 +46,7 @@ class EventListFragment : Fragment() {
         main_event_list.apply {
             this.layoutManager = layoutManager
             this.setHasFixedSize(true)
-            this.adapter = EventListAdapter(eventListViewModel)
+            //this.adapter = EventListAdapter(eventListViewModel)
             this.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             (this.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
             this.addOnScrollListener(object : EndlessScrollListener(layoutManager) {
@@ -62,9 +66,8 @@ class EventListFragment : Fragment() {
         }
 
 
-
-        binding.viewModel = eventListViewModel
-        eventListViewModel.onCreate()
+        //binding.viewModel = eventListViewModel
+        //eventListViewModel.onCreate()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

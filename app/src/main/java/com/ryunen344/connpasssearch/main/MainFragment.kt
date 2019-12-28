@@ -12,19 +12,26 @@ import com.ryunen344.connpasssearch.R
 import com.ryunen344.connpasssearch.databinding.FragmentMainBinding
 import com.ryunen344.connpasssearch.util.LogUtil
 import dagger.android.support.AndroidSupportInjection
+import javax.inject.Inject
 
-class MainFragment : BaseFragment() {
+class MainFragment() : BaseFragment() {
 
     private lateinit var binding: FragmentMainBinding
+
+    @Inject
+    lateinit var mainSectionsPagerAdapter: MainSectionsPagerAdapter
     var prevMenuItem: MenuItem? = null
-    private lateinit var mSectionsPagerAdapter: MainSectionsPagerAdapter
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
         binding.lifecycleOwner = this@MainFragment.viewLifecycleOwner
         return binding.root
@@ -32,6 +39,7 @@ class MainFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.viewPagerContainer.adapter = mainSectionsPagerAdapter
         LogUtil.d()
     }
 }

@@ -21,7 +21,11 @@ class DetailFragment : Fragment() {
         fun newInstance() = DetailFragment()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         LogUtil.d()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_detail, container, false)
         binding.lifecycleOwner = this

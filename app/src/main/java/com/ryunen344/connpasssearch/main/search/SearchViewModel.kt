@@ -1,17 +1,18 @@
 package com.ryunen344.connpasssearch.main.search
 
-
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ryunen344.connpasssearch.data.Event
-import com.ryunen344.connpasssearch.data.source.EventRepository
+import com.ryunen344.connpasssearch.repository.EventRepository
 import com.ryunen344.connpasssearch.util.LogUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SearchViewModel(private val eventRepository: EventRepository) : ViewModel() {
+class SearchViewModel @Inject constructor(private val eventRepository: EventRepository) :
+    ViewModel() {
 
     var _items: MutableList<Event> = mutableListOf()
     val items: MutableLiveData<MutableList<Event>> = MutableLiveData()

@@ -7,7 +7,6 @@ import androidx.fragment.app.commit
 import com.ryunen344.connpasssearch.R
 import com.ryunen344.connpasssearch.loco.log.ScreenLog
 import com.ryunen344.connpasssearch.util.LogUtil
-import com.ryunen344.connpasssearch.util.replaceFragmentInActivity
 import com.sys1yagi.loco.core.Loco
 import kotlinx.android.synthetic.main.activity_detail.*
 
@@ -55,7 +54,7 @@ class DetailActivity : AppCompatActivity(), DetailNavigator {
         super.onBackPressed()
     }
 
-    override fun onSupportNavigateUp() : Boolean {
+    override fun onSupportNavigateUp(): Boolean {
         LogUtil.d()
         onBackPressed()
         return true

@@ -18,14 +18,14 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), EventListNavigator, SearchNavigator, HasAndroidInjector {
+class MainActivity() : BaseActivity(), EventListNavigator, SearchNavigator, HasAndroidInjector {
 
     companion object {
         private const val REQUEST_CODE = 1
     }
 
     @Inject
-    lateinit var fragmentInjector : DispatchingAndroidInjector<Any>
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -45,5 +45,5 @@ class MainActivity : BaseActivity(), EventListNavigator, SearchNavigator, HasAnd
         startActivityForResult(intent, REQUEST_CODE)
     }
 
-    override fun androidInjector(): AndroidInjector<Any> = fragmentInjector
+    override fun androidInjector(): AndroidInjector<Any> = androidInjector
 }

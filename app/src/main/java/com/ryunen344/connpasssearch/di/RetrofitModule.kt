@@ -14,7 +14,7 @@ class RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideOkHttp() : OkHttpClient {
+    fun provideOkHttp(): OkHttpClient {
         val logging = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
             override fun log(message: String) {
                 LogUtil.d(message)
@@ -27,7 +27,7 @@ class RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit() : Retrofit {
+    fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
             .client(provideOkHttp())
             .baseUrl("https://connpass.com/api/v1/")

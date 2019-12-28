@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ryunen344.connpasssearch.data.Event
-import com.ryunen344.connpasssearch.data.source.EventRepository
+import com.ryunen344.connpasssearch.repository.EventRepository
 import com.ryunen344.connpasssearch.util.LogUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -12,14 +12,14 @@ object BindingAdapterUtil {
 
     @JvmStatic
     @BindingAdapter("hashTag")
-    fun setHashTag(view : TextView, hashTagSource : String?) {
+    fun setHashTag(view: TextView, hashTagSource: String?) {
         LogUtil.d()
 
         var hashTag = hashTagSource ?: ""
 
         var spannableString = SpannableString("#$hashTag")
         spannableString.setSpan(object : ClickableSpan() {
-            override fun onClick(textView : View) {
+            override fun onClick(textView: View) {
                 LogUtil.d()
                 //TODO:暗黙的intentでTwitterアプリの検索呼び出し(可能なら)
             }
@@ -30,7 +30,7 @@ object BindingAdapterUtil {
 
     @JvmStatic
     @BindingAdapter("html")
-    fun setHtmlText(view : TextView, htmlSource : String?) {
+    fun setHtmlText(view: TextView, htmlSource: String?) {
         LogUtil.d()
 
         view.text = HtmlCompat.fromHtml(htmlSource ?: "", HtmlCompat.FROM_HTML_MODE_COMPACT)

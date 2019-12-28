@@ -3,7 +3,8 @@ package com.ryunen344.connpasssearch.behavior
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class EndlessScrollListener(private val layoutManager: LinearLayoutManager) : RecyclerView.OnScrollListener() {
+abstract class EndlessScrollListener(private val layoutManager: LinearLayoutManager) :
+    RecyclerView.OnScrollListener() {
 
     var firstVisibleItem: Int = 0
     var lastVisibleItem: Int = 0

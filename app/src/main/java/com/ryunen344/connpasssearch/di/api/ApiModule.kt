@@ -11,6 +11,7 @@ class ApiModule {
 
     @Singleton
     @Provides
-    fun provideConnpassService(retrofit: Retrofit) : ConnpassService = retrofit.create(ConnpassService::class.java)
+    fun provideConnpassService(retrofit: Retrofit): ConnpassService =
+        retrofit.create(ConnpassService::class.java)
 
 }

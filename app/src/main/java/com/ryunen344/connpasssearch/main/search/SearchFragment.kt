@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -35,7 +34,11 @@ class SearchFragment : Fragment(), CoroutineScope {
         fun newInstance() = SearchFragment()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         LogUtil.d()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false)
         binding.lifecycleOwner = this
@@ -52,7 +55,7 @@ class SearchFragment : Fragment(), CoroutineScope {
         main_event_list.apply {
             this.layoutManager = layoutManager
             this.setHasFixedSize(true)
-            this.adapter = SearchAdapter(searchViewModel)
+            //this.adapter = SearchAdapter(searchViewModel)
             this.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
             (this.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
             this.addOnScrollListener(object : EndlessScrollListener(layoutManager) {
@@ -71,21 +74,21 @@ class SearchFragment : Fragment(), CoroutineScope {
             }
         }
 
-        searchViewModel.keyword.observe(this.viewLifecycleOwner, Observer {
-            if (it.isNotEmpty()) {
-//                launch {
-//                    delay(5000)
-//                    LogUtil.d("keyword is $it")
-//                    searchViewModel.searchEvent(it)
-//                }
-                searchViewModel.searchEvent(it)
-            } else {
-                searchViewModel.clearEvent()
-            }
-        })
+//        searchViewModel.keyword.observe(this.viewLifecycleOwner, Observer {
+//            if (it.isNotEmpty()) {
+////                launch {
+////                    delay(5000)
+////                    LogUtil.d("keyword is $it")
+////                    searchViewModel.searchEvent(it)
+////                }
+//                searchViewModel.searchEvent(it)
+//            } else {
+//                searchViewModel.clearEvent()
+//            }
+//        })
 
-        binding.viewModel = searchViewModel
-        searchViewModel.onCreate()
+        //binding.viewModel = searchViewModel
+        //searchViewModel.onCreate()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

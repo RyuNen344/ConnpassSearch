@@ -10,19 +10,19 @@ object LogUtil {
         Log.v(getTag(), getMessage(null))
     }
 
-    fun v(msg : String) {
+    fun v(msg: String) {
         Log.v(getTag(), getMessage(msg))
     }
 
-    fun v(any : Any) {
+    fun v(any: Any) {
         Log.v(getTag(), getMessage(any.toString()))
     }
 
-    fun v(msg : String, t : Throwable) {
+    fun v(msg: String, t: Throwable) {
         Log.v(getTag(), getMessage(msg), t)
     }
 
-    fun v(t : Throwable) {
+    fun v(t: Throwable) {
         Log.v(getTag(), getMessage(t.message), t)
     }
 
@@ -30,19 +30,19 @@ object LogUtil {
         Log.i(getTag(), getMessage(null))
     }
 
-    fun i(msg : String) {
+    fun i(msg: String) {
         Log.i(getTag(), getMessage(msg))
     }
 
-    fun i(any : Any) {
+    fun i(any: Any) {
         Log.v(getTag(), getMessage(any.toString()))
     }
 
-    fun i(msg : String, t : Throwable) {
+    fun i(msg: String, t: Throwable) {
         Log.i(getTag(), getMessage(msg), t)
     }
 
-    fun i(t : Throwable) {
+    fun i(t: Throwable) {
         Log.i(getTag(), getMessage(t.message), t)
     }
 
@@ -51,22 +51,22 @@ object LogUtil {
         Log.d(getTag(), getMessage(null))
     }
 
-    fun d(msg : String?) {
+    fun d(msg: String?) {
         if (!BuildConfig.DEBUG) return
         Log.d(getTag(), getMessage(msg))
     }
 
-    fun d(any : Any?) {
+    fun d(any: Any?) {
         if (!BuildConfig.DEBUG) return
         Log.d(getTag(), getMessage(any.toString()))
     }
 
-    fun d(t : Throwable) {
+    fun d(t: Throwable) {
         if (!BuildConfig.DEBUG) return
         Log.d(getTag(), getMessage(t.message), t)
     }
 
-    fun d(msg : String?, t : Throwable) {
+    fun d(msg: String?, t: Throwable) {
         if (!BuildConfig.DEBUG) return
         Log.d(getTag(), getMessage(msg), t)
     }
@@ -75,19 +75,19 @@ object LogUtil {
         Log.e(getTag(), getMessage(null))
     }
 
-    fun e(msg : String) {
+    fun e(msg: String) {
         Log.e(getTag(), getMessage(msg))
     }
 
-    fun e(any : Any) {
+    fun e(any: Any) {
         Log.e(getTag(), getMessage(any.toString()))
     }
 
-    fun e(t : Throwable) {
+    fun e(t: Throwable) {
         Log.e(getTag(), getMessage(t.message), t)
     }
 
-    fun e(msg : String, t : Throwable) {
+    fun e(msg: String, t: Throwable) {
         Log.e(getTag(), getMessage(msg), t)
     }
 
@@ -95,33 +95,33 @@ object LogUtil {
         Log.w(getTag(), getMessage(null))
     }
 
-    fun w(msg : String) {
+    fun w(msg: String) {
         Log.w(getTag(), getMessage(msg))
     }
 
-    fun w(any : Any) {
+    fun w(any: Any) {
         Log.w(getTag(), getMessage(any.toString()))
     }
 
-    fun w(t : Throwable) {
+    fun w(t: Throwable) {
         Log.w(getTag(), getMessage(t.message), t)
     }
 
-    fun w(msg : String, t : Throwable) {
+    fun w(msg: String, t: Throwable) {
         Log.w(getTag(), getMessage(msg), t)
     }
 
-    private fun getTag() : String {
-        val trace : StackTraceElement = Thread.currentThread().stackTrace[4]
+    private fun getTag(): String {
+        val trace: StackTraceElement = Thread.currentThread().stackTrace[4]
         val threadName = Thread.currentThread().name
-        val cla : String = trace.className
-        var pattern : Pattern = Pattern.compile("[\\.]")
-        val splitStr : List<String> = pattern.split(cla).toList()
+        val cla: String = trace.className
+        var pattern: Pattern = Pattern.compile("[\\.]")
+        val splitStr: List<String> = pattern.split(cla).toList()
 
         return "${splitStr[splitStr.size - 1]}#${trace.methodName}:${trace.lineNumber} {$threadName}"
     }
 
-    private fun getMessage(msg : String?) : String {
+    private fun getMessage(msg: String?): String {
         return msg ?: "called"
     }
 }
