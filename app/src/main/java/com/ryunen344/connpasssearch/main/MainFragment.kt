@@ -11,12 +11,18 @@ import com.ryunen344.connpasssearch.BaseFragment
 import com.ryunen344.connpasssearch.R
 import com.ryunen344.connpasssearch.databinding.FragmentMainBinding
 import com.ryunen344.connpasssearch.util.LogUtil
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
-class MainFragment() : BaseFragment() {
+class MainFragment : BaseFragment(), HasAndroidInjector {
 
     private lateinit var binding: FragmentMainBinding
+
+    @Inject
+    lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
     @Inject
     lateinit var mainSectionsPagerAdapter: MainSectionsPagerAdapter
@@ -42,4 +48,6 @@ class MainFragment() : BaseFragment() {
         binding.viewPagerContainer.adapter = mainSectionsPagerAdapter
         LogUtil.d()
     }
+
+    override fun androidInjector(): AndroidInjector<Any> = androidInjector
 }

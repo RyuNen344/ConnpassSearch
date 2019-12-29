@@ -8,6 +8,8 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: 'androidx.navigation.safeargs'
 
+apply plugin: "scabbard.gradle"
+
 android {
     compileSdkVersion 29
     defaultConfig {
@@ -125,4 +127,10 @@ dependencies {
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test:runner:$runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+}
+
+scabbard {
+    enabled true
+    failOnError false
+    fullBindingGraphValidation true
 }

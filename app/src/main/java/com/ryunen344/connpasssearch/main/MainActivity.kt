@@ -2,9 +2,11 @@ package com.ryunen344.connpasssearch.main
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.commit
 import com.ryunen344.connpasssearch.BaseActivity
 import com.ryunen344.connpasssearch.R
+import com.ryunen344.connpasssearch.databinding.ActivityMainBinding
 import com.ryunen344.connpasssearch.detail.DetailActivity
 import com.ryunen344.connpasssearch.detail.DetailActivity.Companion.INTENT_KEY_EVENT_ID
 import com.ryunen344.connpasssearch.loco.log.ScreenLog
@@ -18,11 +20,13 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
-class MainActivity() : BaseActivity(), EventListNavigator, SearchNavigator, HasAndroidInjector {
+class MainActivity : BaseActivity(), EventListNavigator, SearchNavigator, HasAndroidInjector {
 
     companion object {
         private const val REQUEST_CODE = 1
     }
+
+    private lateinit var binding: ActivityMainBinding
 
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
@@ -30,8 +34,9 @@ class MainActivity() : BaseActivity(), EventListNavigator, SearchNavigator, HasA
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        Loco.send(ScreenLog(this::class.java.simpleName))
-        setContentView(R.layout.activity_main)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.lifecycleOwner = this@MainActivity
 
         supportFragmentManager.commit {
             replace(R.id.main_fragment_container, MainFragment())

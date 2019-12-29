@@ -13,7 +13,6 @@ class MainSectionsPagerAdapter(fragment: MainFragment) : FragmentStateAdapter(fr
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> EventListFragment().also {
-                //it.mPagerPosition = position
                 LogUtil.d()
             }
             else -> SearchFragment().also {
