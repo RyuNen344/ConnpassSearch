@@ -1,6 +1,6 @@
 package com.ryunen344.connpasssearch
 
-import android.content.Context
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.ryunen344.connpasssearch.loco.log.ScreenLog
 import com.ryunen344.connpasssearch.util.LoggingLifecycleObserver
@@ -10,9 +10,9 @@ abstract class BaseFragment : Fragment() {
 
     private val loggingLifecycleObserver = LoggingLifecycleObserver()
 
-    override fun onAttach(context: Context) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         this@BaseFragment.lifecycle.addObserver(loggingLifecycleObserver)
-        super.onAttach(context)
         Loco.send(ScreenLog(this.javaClass.simpleName))
     }
 

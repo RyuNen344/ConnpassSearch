@@ -3,7 +3,6 @@ package com.ryunen344.connpasssearch.main
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -25,8 +24,7 @@ class MainFragment : BaseFragment(), HasAndroidInjector {
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
     @Inject
-    lateinit var mainSectionsPagerAdapter: MainSectionsPagerAdapter
-    var prevMenuItem: MenuItem? = null
+    lateinit var mainFragmentStateAdapter: MainFragmentStateAdapter
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -45,8 +43,7 @@ class MainFragment : BaseFragment(), HasAndroidInjector {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewPagerContainer.adapter = mainSectionsPagerAdapter
-        LogUtil.d()
+        binding.viewPagerContainer.adapter = mainFragmentStateAdapter
     }
 
     override fun androidInjector(): AndroidInjector<Any> = androidInjector

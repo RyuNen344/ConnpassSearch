@@ -7,17 +7,20 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.ryunen344.connpasssearch.data.Event
+import com.ryunen344.connpasssearch.main.EventListAdapter
 
-object BindingAdapterUtil {
+object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("hashTag")
     fun setHashTag(view: TextView, hashTagSource: String?) {
         LogUtil.d()
 
-        var hashTag = hashTagSource ?: ""
+        val hashTag = hashTagSource ?: ""
 
-        var spannableString = SpannableString("#$hashTag")
+        val spannableString = SpannableString("#$hashTag")
         spannableString.setSpan(object : ClickableSpan() {
             override fun onClick(textView: View) {
                 LogUtil.d()
@@ -34,5 +37,17 @@ object BindingAdapterUtil {
         LogUtil.d()
 
         view.text = HtmlCompat.fromHtml(htmlSource ?: "", HtmlCompat.FROM_HTML_MODE_COMPACT)
+    }
+
+    @JvmStatic
+    @BindingAdapter("items")
+    fun RecyclerView.bindItems(items: MutableList<Event>?) {
+        LogUtil.d()
+
+        //items is nullable, so check
+        items ?: return
+
+        val adapter = adapter as EventListAdapter
+        adapter.submitList(items)
     }
 }

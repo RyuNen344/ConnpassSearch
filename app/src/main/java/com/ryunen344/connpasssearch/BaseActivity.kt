@@ -11,8 +11,8 @@ abstract class BaseActivity : AppCompatActivity() {
     private val loggingLifecycleObserver = LoggingLifecycleObserver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        this@BaseActivity.lifecycle.addObserver(loggingLifecycleObserver)
         super.onCreate(savedInstanceState)
+        this@BaseActivity.lifecycle.addObserver(loggingLifecycleObserver)
         Loco.send(ScreenLog(this.javaClass.simpleName))
     }
 

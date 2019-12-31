@@ -8,11 +8,9 @@ import com.ryunen344.connpasssearch.util.LogUtil
 import kotlinx.coroutines.runBlocking
 import retrofit2.Response
 import retrofit2.Retrofit
+import javax.inject.Inject
 
-class EventRepository {
-
-    private var connpassService: ConnpassService =
-        Retrofit.Builder().build().create(ConnpassService::class.java)
+class EventRepository @Inject constructor(private val connpassService: ConnpassService){
 
     suspend fun getEventList(currentPage: Int): LiveData<EventResponse> {
         LogUtil.d()
