@@ -21,6 +21,7 @@ class ApiModule {
                 LogUtil.d(message)
             }
         })
+        logging.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder()
             .addInterceptor(logging)
             .build()
