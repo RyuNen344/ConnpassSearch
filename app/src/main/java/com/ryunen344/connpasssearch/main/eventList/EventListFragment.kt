@@ -7,11 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.SimpleItemAnimator
 import com.ryunen344.connpasssearch.BaseFragment
 import com.ryunen344.connpasssearch.R
 import com.ryunen344.connpasssearch.behavior.EndlessScrollListener
@@ -38,12 +35,11 @@ class EventListFragment : BaseFragment(), HasAndroidInjector {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private lateinit var eventListViewModel: EventListViewModel
+    private val eventListViewModel: EventListViewModel by viewModels { viewModelFactory }
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
-        eventListViewModel = ViewModelProvider(this, viewModelFactory).get(EventListViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -56,7 +52,8 @@ class EventListFragment : BaseFragment(), HasAndroidInjector {
             inflater,
             R.layout.fragment_event_list,
             container,
-            false)
+            false
+        )
         binding.lifecycleOwner = this@EventListFragment.viewLifecycleOwner
         binding.viewModel = eventListViewModel
         return binding.root
@@ -64,29 +61,42 @@ class EventListFragment : BaseFragment(), HasAndroidInjector {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initUI()
+        loadEvent()
+    }
 
-
+    private fun initUI() {
         val layoutManager = LinearLayoutManager(context)
 
         binding.mainEventList.apply {
             this.layoutManager = layoutManager
             this.adapter = eventListAdapter
             this.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-            (this.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+            //(this.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
             this.addOnScrollListener(object : EndlessScrollListener(layoutManager) {
                 override fun onLoadMore(currentPage: Int) {
-                    LogUtil.d()
+                    LogUtil.d(currentPage)
                     eventListViewModel.loadMoreEventList(currentPage)
                 }
             })
         }
 
         binding.swipeRefresh.apply {
+            this.setColorSchemeResources(
+                R.color.colorAccent,
+                R.color.colorPrimary,
+                R.color.colorPrimaryDark
+            )
             setOnRefreshListener {
                 LogUtil.d()
+//                binding.viewModel?.loadEventList()
                 isRefreshing = false
             }
         }
+    }
+
+    private fun loadEvent() {
+        binding.viewModel?.loadEventList()
     }
 
     override fun androidInjector(): AndroidInjector<Any> = androidInjector

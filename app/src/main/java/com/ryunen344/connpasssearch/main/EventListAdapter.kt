@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ryunen344.connpasssearch.R
 import com.ryunen344.connpasssearch.data.Event
-import com.ryunen344.connpasssearch.util.LogUtil
+import com.ryunen344.connpasssearch.databinding.ItemEventBinding
 
 class EventListAdapter : ListAdapter<Event, EventListAdapter.ViewHolder>(
-    object :  DiffUtil.ItemCallback<Event>(){
+    object : DiffUtil.ItemCallback<Event>() {
         override fun areItemsTheSame(oldItem: Event, newItem: Event): Boolean {
             return oldItem.event_id == newItem.event_id
         }
@@ -35,7 +35,8 @@ class EventListAdapter : ListAdapter<Event, EventListAdapter.ViewHolder>(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        LogUtil.d("position is $position")
+//        LogUtil.d("position is $position")
+        (holder.binding as ItemEventBinding).item = getItem(position)
         holder.binding.executePendingBindings()
     }
 

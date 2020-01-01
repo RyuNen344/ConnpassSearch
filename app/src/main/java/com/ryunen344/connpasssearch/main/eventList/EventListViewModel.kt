@@ -1,5 +1,6 @@
 package com.ryunen344.connpasssearch.main.eventList
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,20 +14,12 @@ import javax.inject.Inject
 class EventListViewModel @Inject constructor(private val eventRepository: EventRepository) :
     ViewModel() {
 
-    var _items: MutableList<Event> = mutableListOf()
-    val items: MutableLiveData<MutableList<Event>> = MutableLiveData()
-    private var navigator: EventListNavigator? = null
+    private var _items: MutableLiveData<List<Event>> = MutableLiveData()
+    val items: LiveData<List<Event>>
+        get() = _items
 
-    fun onCreate() = viewModelScope.launch(Dispatchers.IO) {
-        LogUtil.d()
+    fun loadEventList() = viewModelScope.launch(Dispatchers.IO) {
         loadEventList(0)
-    }
-
-
-    fun onActivityDestroyed() {
-        LogUtil.d()
-        // Clear references to avoid potential memory leaks.
-        navigator = null
     }
 
     override fun onCleared() {
@@ -35,27 +28,25 @@ class EventListViewModel @Inject constructor(private val eventRepository: EventR
     }
 
     fun loadMoreEventList(currentPage: Int) = viewModelScope.launch(Dispatchers.IO) {
-        LogUtil.d("currentPage is $currentPage")
         loadEventList(currentPage)
     }
 
     fun itemClick(eventId: Int) {
         LogUtil.d("event id = $eventId")
-        navigator?.let {
-            it.onStartEventDetail(eventId)
-        }
     }
 
-    fun setNavigator(navigator: EventListNavigator) {
-        LogUtil.d()
-        this.navigator = navigator
-    }
-
-    private suspend fun loadEventList(currentPage: Int) {
-        LogUtil.d()
-        eventRepository.getEventList(currentPage).value?.events?.let {
-            _items.addAll(it)
-            items.postValue(_items)
+    private suspend fun loadEventList(currentPage: Int) = viewModelScope.launch(Dispatchers.IO) {
+        LogUtil.d("currentPage is $currentPage")
+        val newItems = eventRepository.getEventList(currentPage).value?.events
+        launch(Dispatchers.Main) {
+            val value = mutableListOf<Event>()
+            _items.value?.let {
+                value.addAll(it)
+            }
+            newItems?.let {
+                value.addAll(it)
+            }
+            _items.value = value
             LogUtil.d("post list")
         }
     }
