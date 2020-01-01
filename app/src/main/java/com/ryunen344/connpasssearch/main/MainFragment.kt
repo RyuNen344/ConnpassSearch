@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil
 import com.ryunen344.connpasssearch.BaseFragment
 import com.ryunen344.connpasssearch.R
 import com.ryunen344.connpasssearch.databinding.FragmentMainBinding
-import com.ryunen344.connpasssearch.util.LogUtil
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector

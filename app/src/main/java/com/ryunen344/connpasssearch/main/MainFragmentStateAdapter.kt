@@ -7,7 +7,8 @@ import com.ryunen344.connpasssearch.main.search.SearchFragment
 import com.ryunen344.connpasssearch.util.LogUtil
 import javax.inject.Inject
 
-class MainFragmentStateAdapter @Inject constructor(fragment: MainFragment) : FragmentStateAdapter(fragment) {
+class MainFragmentStateAdapter @Inject constructor(private val fragment: MainFragment) :
+    FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int = 2
 

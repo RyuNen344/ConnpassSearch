@@ -9,18 +9,15 @@ import com.ryunen344.connpasssearch.R
 import com.ryunen344.connpasssearch.databinding.ActivityMainBinding
 import com.ryunen344.connpasssearch.detail.DetailActivity
 import com.ryunen344.connpasssearch.detail.DetailActivity.Companion.INTENT_KEY_EVENT_ID
-import com.ryunen344.connpasssearch.loco.log.ScreenLog
-import com.ryunen344.connpasssearch.main.eventList.EventListNavigator
 import com.ryunen344.connpasssearch.main.search.SearchNavigator
 import com.ryunen344.connpasssearch.util.LogUtil
-import com.sys1yagi.loco.core.Loco
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), EventListNavigator, SearchNavigator, HasAndroidInjector {
+class MainActivity : BaseActivity(), SearchNavigator, HasAndroidInjector {
 
     companion object {
         private const val REQUEST_CODE = 1
