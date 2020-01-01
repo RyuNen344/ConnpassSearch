@@ -16,8 +16,6 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("hashTag")
     fun setHashTag(view: TextView, hashTagSource: String?) {
-        LogUtil.d()
-
         val hashTag = hashTagSource ?: ""
 
         val spannableString = SpannableString("#$hashTag")
@@ -34,16 +32,12 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("html")
     fun setHtmlText(view: TextView, htmlSource: String?) {
-        LogUtil.d()
-
         view.text = HtmlCompat.fromHtml(htmlSource ?: "", HtmlCompat.FROM_HTML_MODE_COMPACT)
     }
 
     @JvmStatic
     @BindingAdapter("items")
     fun RecyclerView.bindItems(items: MutableList<Event>?) {
-        LogUtil.d()
-
         //items is nullable, so check
         items ?: return
 
