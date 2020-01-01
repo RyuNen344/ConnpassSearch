@@ -11,7 +11,5 @@ class RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideEventRepository(connpassService: ConnpassService) =
-        EventRepository(connpassService)
-
+    fun provideEventRepository(connpassService: ConnpassService) = EventRepository(connpassService)
 }

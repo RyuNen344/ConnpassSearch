@@ -1,6 +1,5 @@
-package com.ryunen344.connpasssearch.di
+package com.ryunen344.connpasssearch.di.ui
 
-import com.ryunen344.connpasssearch.di.ui.MainActivityModule
 import com.ryunen344.connpasssearch.main.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

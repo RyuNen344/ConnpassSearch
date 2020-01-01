@@ -1,7 +1,7 @@
 package com.ryunen344.connpasssearch.di.ui
 
 import androidx.lifecycle.ViewModel
-import com.ryunen344.connpasssearch.di.FragmentScope
+import com.ryunen344.connpasssearch.di.scope.FragmentScope
 import com.ryunen344.connpasssearch.di.viewmodel.ViewModelKey
 import com.ryunen344.connpasssearch.main.EventListAdapter
 import com.ryunen344.connpasssearch.main.eventList.EventListViewModel

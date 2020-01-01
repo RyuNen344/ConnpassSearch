@@ -1,4 +1,4 @@
-package com.ryunen344.connpasssearch.di
+package com.ryunen344.connpasssearch.di.scope
 
 import javax.inject.Scope
 
