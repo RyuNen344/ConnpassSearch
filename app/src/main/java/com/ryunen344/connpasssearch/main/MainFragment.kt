@@ -3,6 +3,7 @@ package com.ryunen344.connpasssearch.main
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -25,6 +26,8 @@ class MainFragment : BaseFragment(), HasAndroidInjector {
     @Inject
     lateinit var mainFragmentStateAdapter: MainFragmentStateAdapter
 
+    var prevMenuItem: MenuItem? = null
+
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
@@ -42,7 +45,71 @@ class MainFragment : BaseFragment(), HasAndroidInjector {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initViewPager()
+    }
+
+    private fun initViewPager() {
         binding.viewPagerContainer.adapter = mainFragmentStateAdapter
+
+        binding.navigation.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+                    binding.viewPagerContainer.currentItem = 0
+                }
+                R.id.navigation_search -> {
+                    binding.viewPagerContainer.currentItem = 1
+                }
+            }
+            false
+        }
+
+        binding.viewPagerContainer.addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
+
+//            override fun onPageScrolled(
+//                position: Int,
+//                positionOffset: Float,
+//                positionOffsetPixels: Int
+//            ) {
+//                LogUtil.d()
+//                activity?.let {
+//                    it.toolbar.title = mSectionsPagerAdapter.getPageTitle(position)
+//                }
+//            }
+//
+//            override fun onPageSelected(position: Int) {
+//                LogUtil.d()
+//
+//                if (prevMenuItem != null) {
+//                    prevMenuItem?.isChecked = false
+//                } else {
+//                    activity?.let {
+//                        it.navigation.menu[0].isChecked = false
+//                        it.toolbar.title = mSectionsPagerAdapter.getPageTitle(0)
+//                    }
+//                }
+//
+//                activity?.let {
+//                    it.navigation.menu[position].isChecked = true
+//                    prevMenuItem = it.navigation.menu[position]
+//                }
+//            }
+
+            override fun onLayoutChange(
+                v: View?,
+                left: Int,
+                top: Int,
+                right: Int,
+                bottom: Int,
+                oldLeft: Int,
+                oldTop: Int,
+                oldRight: Int,
+                oldBottom: Int
+            ) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        }
+
+        )
     }
 
     override fun androidInjector(): AndroidInjector<Any> = androidInjector

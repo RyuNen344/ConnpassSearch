@@ -1,4 +1,4 @@
-package com.ryunen344.connpasssearch.detail
+package com.ryunen344.connpasssearch.main.detail
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,13 +8,13 @@ import com.ryunen344.connpasssearch.repository.EventRepository
 import com.ryunen344.connpasssearch.util.LogUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailViewModel(private val eventRepository: EventRepository) : ViewModel() {
+class DetailViewModel @Inject constructor(private val eventRepository: EventRepository) :
+    ViewModel() {
 
     var eventId: Int = 0
     var items: MutableLiveData<Event> = MutableLiveData()
-    private var navigator: DetailNavigator? = null
-
 
     fun onCreate() = viewModelScope.launch(Dispatchers.IO) {
         LogUtil.d()
@@ -24,17 +24,11 @@ class DetailViewModel(private val eventRepository: EventRepository) : ViewModel(
     fun onActivityDestroyed() {
         LogUtil.d()
         // Clear references to avoid potential memory leaks.
-        navigator = null
     }
 
     override fun onCleared() {
         LogUtil.d()
         super.onCleared()
-    }
-
-    fun setNavigator(navigator: DetailNavigator) {
-        LogUtil.d()
-        this.navigator = navigator
     }
 
     private suspend fun loadEvent() {

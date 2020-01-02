@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name="com.ryunen344.connpasssearch.detail.DetailActivity"
+                android:name="com.ryunen344.connpasssearch.main.detail.DetailActivity"
                 android:parentActivityName="com.ryunen344.connpasssearch.main.MainActivity">
         </activity>
     </application>

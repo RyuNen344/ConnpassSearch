@@ -1,4 +1,4 @@
-package com.ryunen344.connpasssearch.detail
+package com.ryunen344.connpasssearch.main.detail
 
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -10,7 +10,7 @@ import com.ryunen344.connpasssearch.util.LogUtil
 import com.sys1yagi.loco.core.Loco
 import kotlinx.android.synthetic.main.activity_detail.*
 
-class DetailActivity : AppCompatActivity(), DetailNavigator {
+class DetailActivity : AppCompatActivity() {
 
     companion object {
         const val INTENT_KEY_EVENT_ID: String = "key_event_id"
@@ -36,8 +36,6 @@ class DetailActivity : AppCompatActivity(), DetailNavigator {
 
         eventId = intent.getIntExtra(INTENT_KEY_EVENT_ID, 0)
         detailViewModel.eventId = eventId
-
-        detailViewModel.setNavigator(this)
 
         supportFragmentManager.commit {
             replace(R.id.detailFrame, DetailFragment())

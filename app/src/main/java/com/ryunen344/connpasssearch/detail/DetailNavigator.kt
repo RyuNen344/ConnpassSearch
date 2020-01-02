@@ -1,3 +1,0 @@
-package com.ryunen344.connpasssearch.detail
-
-interface DetailNavigator
