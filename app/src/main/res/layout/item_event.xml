@@ -6,6 +6,10 @@
     <data>
 
         <variable
+                name="clickListener"
+                type="android.view.View.OnClickListener"/>
+
+        <variable
                 name="item"
                 type="com.ryunen344.connpasssearch.data.Event"/>
     </data>
@@ -13,7 +17,8 @@
     <FrameLayout
             android:background="?android:attr/selectableItemBackground"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:onClick="@{clickListener}">
 
         <RelativeLayout
                 android:layout_width="match_parent"

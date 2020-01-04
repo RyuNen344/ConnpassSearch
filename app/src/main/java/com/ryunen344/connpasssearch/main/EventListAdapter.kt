@@ -4,12 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ryunen344.connpasssearch.R
 import com.ryunen344.connpasssearch.data.Event
 import com.ryunen344.connpasssearch.databinding.ItemEventBinding
+import com.ryunen344.connpasssearch.util.LogUtil
 
 class EventListAdapter : ListAdapter<Event, EventListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<Event>() {
@@ -37,6 +39,16 @@ class EventListAdapter : ListAdapter<Event, EventListAdapter.ViewHolder>(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 //        LogUtil.d("position is $position")
         (holder.binding as ItemEventBinding).item = getItem(position)
+        holder.binding.setClickListener {
+            val directions = MainFragmentDirections.actionToDetail(getItem(position).event_id)
+            LogUtil.d(directions.actionId)
+            it.findNavController().navigate(directions)
+        }
+        holder.itemView.setOnClickListener {
+
+            LogUtil.d()
+
+        }
         holder.binding.executePendingBindings()
     }
 

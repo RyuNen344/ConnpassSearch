@@ -1,4 +1,4 @@
-package com.ryunen344.connpasssearch.main.detail
+package com.ryunen344.connpasssearch.detail
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

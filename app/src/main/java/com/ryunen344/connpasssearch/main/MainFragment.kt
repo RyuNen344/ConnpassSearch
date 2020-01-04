@@ -7,9 +7,13 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.ryunen344.connpasssearch.BaseFragment
 import com.ryunen344.connpasssearch.R
 import com.ryunen344.connpasssearch.databinding.FragmentMainBinding
+import com.ryunen344.connpasssearch.util.LogUtil
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -40,12 +44,17 @@ class MainFragment : BaseFragment(), HasAndroidInjector {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
         binding.lifecycleOwner = this@MainFragment.viewLifecycleOwner
+        initToolBar()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewPager()
+    }
+
+    private fun initToolBar() {
+        binding.mainToolBar.setupWithNavController(findNavController())
     }
 
     private fun initViewPager() {
@@ -105,11 +114,15 @@ class MainFragment : BaseFragment(), HasAndroidInjector {
                 oldRight: Int,
                 oldBottom: Int
             ) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                LogUtil.d()
             }
         }
 
         )
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(item, findNavController())
     }
 
     override fun androidInjector(): AndroidInjector<Any> = androidInjector

@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import com.ryunen344.connpasssearch.BaseActivity
 import com.ryunen344.connpasssearch.R
 import com.ryunen344.connpasssearch.databinding.ActivityMainBinding
+import com.ryunen344.connpasssearch.util.LogUtil
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -36,6 +37,16 @@ class MainActivity : BaseActivity(), HasAndroidInjector {
 //        supportFragmentManager.commit {
 //            replace(R.id.main_fragment_container, MainFragment())
 //        }
+    }
+
+    override fun onBackPressed() {
+        if (onBackPressedDispatcher.hasEnabledCallbacks()) {
+            LogUtil.d()
+        } else {
+            LogUtil.d()
+        }
+
+        super.onBackPressed()
     }
 
     override fun onSupportNavigateUp() = navController.navigateUp()
