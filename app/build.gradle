@@ -1,140 +1,74 @@
+import dependencies.Dep
+import dependencies.Packages
+
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
-
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 
-apply plugin: "scabbard.gradle"
+apply from: rootProject.file('gradle/android.gradle')
 
 android {
-    compileSdkVersion 29
     defaultConfig {
-        applicationId "com.ryunen344.connpasssearch"
-        minSdkVersion 24
-        targetSdkVersion 29
-        versionCode 1
-        versionName "0.0.1"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        applicationId Packages.name
     }
 
-    packagingOptions {
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/license.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/notice.txt'
-        exclude 'META-INF/ASL2.0'
-        exclude("META-INF/*.kotlin_module")
+    buildTypes {
+        debug {
+            applicationIdSuffix Packages.debugNameSuffix
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
     }
 
     buildFeatures {
         dataBinding = true
     }
-
-    androidExtensions {
-        experimental = true
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation project(":model")
+    implementation project(":data:api")
+    implementation project(":data:repository")
+    implementation project(":core")
+    implementation project(":feature:main")
+    implementation project(":feature:detail")
+    implementation project(":feature:webview")
+
     implementation 'com.github.DonaldDu:FixUnhandledEvent:1.0.1'
 
-    implementation "androidx.appcompat:appcompat:$appcompat_version"
-    implementation "androidx.core:core-ktx:$core_version"
-    implementation "androidx.activity:activity-ktx:$activity_version"
-    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+    implementation Dep.Kotlin.stdlibJvm
+    implementation Dep.Kotlin.stdlibCommon
+    implementation Dep.AndroidX.appCompat
+    implementation Dep.AndroidX.coreKtx
+    implementation Dep.AndroidX.constraint
+    implementation Dep.AndroidX.activityKtx
 
-    implementation "androidx.constraintlayout:constraintlayout:$constraint_version"
-    implementation "androidx.coordinatorlayout:coordinatorlayout:$coordinator_version"
-    implementation "com.google.android.material:material:$material_version"
-    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swiperefreshlayout_version"
+    implementation Dep.AndroidX.Navigation.uiKtx
+    implementation Dep.AndroidX.Navigation.fragmentKtx
+    implementation Dep.AndroidX.Navigation.runtimeKtx
 
-    // kotlin coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutines_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
-
-    // lifecycle
-    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
-
-    // navigation
-    implementation "androidx.navigation:navigation-runtime-ktx:$navigation_version"
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
+    implementation Dep.Kotlin.coroutines
+    implementation Dep.Kotlin.coroutinesCommon
 
     //jsoup
     implementation 'org.jsoup:jsoup:1.12.1'
 
-    // dagger
-    implementation "com.google.dagger:dagger:$dagger_version"
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
-    implementation "com.google.dagger:dagger-android:$dagger_version"
-    implementation "com.google.dagger:dagger-android-support:$dagger_version"
-    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
-
-    //retrofit2
-    def retrofit2_version = '2.7.0'
-    implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.2'
-    implementation 'org.conscrypt:conscrypt-android:2.2.1'
-
-    //loco
-    def loco_version = "1.1.0"
-    implementation "com.sys1yagi.loco:loco-core:$loco_version"
-    implementation 'com.sys1yagi.loco:loco-smasher-filterable-gson:1.0.0'
-    implementation 'com.sys1yagi.loco:loco-store-android-sqlite:1.0.0'
-    implementation 'com.sys1yagi.loco:loco-sender-gson-jsonarray:1.0.0'
-
-    //gson
-    def gson_version = '2.8.6'
-    implementation "com.google.code.gson:gson:$gson_version"
-
-    // for JAXB
-//    implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
-//    implementation 'com.sun.xml.bind:jaxb-core:2.3.0'
-//    implementation 'com.sun.xml.bind:jaxb-impl:2.4.0-b180830.0438'
-//    implementation "javax.activation:activation:1.1.1"
+    implementation Dep.Dagger.core
+    implementation Dep.Dagger.androidSupport
+    kapt Dep.Dagger.compiler
+    kapt Dep.Dagger.androidProcessor
+    compileOnly Dep.Dagger.assistedInjectAnnotations
+    kapt Dep.Dagger.assistedInjectProcessor
 
 
-    //-------------------------test--------------------------
-    testImplementation "junit:junit:$junit_version"
-    androidTestImplementation "androidx.test:runner:$runner_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
-}
-
-scabbard {
-    enabled true
-    failOnError false
-    fullBindingGraphValidation true
+    testImplementation Dep.Test.junit
+    testImplementation Dep.Test.kotlinTestAssertions
+    testImplementation Dep.MockK.jvm
+    androidTestImplementation Dep.Test.testRunner
+    androidTestImplementation Dep.Test.espressoCore
 }
 
 configurations.all {

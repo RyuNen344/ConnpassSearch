@@ -1,1 +1,10 @@
+include ':feature:webview'
+include ':feature:detail'
+include ':feature:main'
+include ':data:api'
+include ':data:repository'
+include ':core'
+include ':model'
 include ':app'
+rootProject.name = "ConnpassSearch"
+enableFeaturePreview('GRADLE_METADATA')

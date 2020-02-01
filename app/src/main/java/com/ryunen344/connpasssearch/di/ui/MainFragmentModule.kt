@@ -1,8 +1,8 @@
 package com.ryunen344.connpasssearch.di.ui
 
-import com.ryunen344.connpasssearch.di.scope.FragmentScope
-import com.ryunen344.connpasssearch.main.eventList.EventListFragment
-import com.ryunen344.connpasssearch.main.search.SearchFragment
+import com.ryunen344.connpasssearch.core.di.FragmentScope
+import com.ryunen344.connpasssearch.feature.main.eventList.EventListFragment
+import com.ryunen344.connpasssearch.feature.main.search.SearchFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

@@ -1,0 +1,46 @@
+import dependencies.Dep
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+apply from: rootProject.file('gradle/android.gradle')
+android.buildFeatures.dataBinding = true
+
+dependencies {
+    implementation project(":model")
+    implementation project(":data:repository")
+    implementation project(":core")
+
+    implementation Dep.Kotlin.stdlibJvm
+    implementation Dep.Kotlin.stdlibCommon
+    implementation Dep.AndroidX.appCompat
+    implementation Dep.AndroidX.coreKtx
+    implementation Dep.AndroidX.constraint
+    implementation Dep.AndroidX.activityKtx
+    implementation Dep.AndroidX.browser
+
+    implementation Dep.AndroidX.Navigation.uiKtx
+    implementation Dep.AndroidX.Navigation.fragmentKtx
+    implementation Dep.AndroidX.Navigation.runtimeKtx
+
+    implementation Dep.Kotlin.coroutines
+    implementation Dep.Kotlin.coroutinesCommon
+
+    //jsoup
+    implementation 'org.jsoup:jsoup:1.12.1'
+
+    implementation Dep.Dagger.core
+    implementation Dep.Dagger.androidSupport
+    kapt Dep.Dagger.compiler
+    kapt Dep.Dagger.androidProcessor
+    compileOnly Dep.Dagger.assistedInjectAnnotations
+    kapt Dep.Dagger.assistedInjectProcessor
+
+    testImplementation Dep.Test.junit
+    testImplementation Dep.Test.kotlinTestAssertions
+    testImplementation Dep.MockK.jvm
+    androidTestImplementation Dep.Test.testRunner
+    androidTestImplementation Dep.Test.espressoCore
+}

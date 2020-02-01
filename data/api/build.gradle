@@ -1,0 +1,50 @@
+import dependencies.Dep
+import dependencies.Packages
+import dependencies.Versions
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlinx-serialization'
+
+apply from: rootProject.file('gradle/android.gradle')
+
+androidExtensions {
+    experimental = true
+    features = ["parcelize"]
+}
+
+dependencies {
+    implementation Dep.Kotlin.stdlibJvm
+    implementation Dep.Kotlin.stdlibCommon
+
+    implementation Dep.Kotlin.coroutines
+    implementation Dep.Kotlin.androidCoroutinesDispatcher
+    implementation Dep.Kotlin.serializationAndroid
+
+    api Dep.Klock.common
+
+    implementation Dep.Ktor.clientCommon
+    implementation Dep.Ktor.serializationCommon
+    implementation Dep.Ktor.clientAndroid
+    implementation Dep.Ktor.serializationJvm
+
+    implementation Dep.Stetho.stetho
+
+    implementation Dep.OkHttp.client
+    implementation Dep.OkHttp.loggingInterceptor
+
+    implementation Dep.Dagger.core
+    implementation Dep.Dagger.androidSupport
+    kapt Dep.Dagger.compiler
+    kapt Dep.Dagger.androidProcessor
+    compileOnly Dep.Dagger.assistedInjectAnnotations
+    kapt Dep.Dagger.assistedInjectProcessor
+
+    testImplementation Dep.Test.junit
+    testImplementation Dep.Test.kotlinTestAssertions
+    testImplementation Dep.MockK.jvm
+    androidTestImplementation Dep.Test.testRunner
+    androidTestImplementation Dep.Test.espressoCore
+}

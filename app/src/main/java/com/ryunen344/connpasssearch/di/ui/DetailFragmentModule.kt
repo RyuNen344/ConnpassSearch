@@ -1,18 +1,14 @@
 package com.ryunen344.connpasssearch.di.ui
 
 import androidx.lifecycle.ViewModel
-import com.ryunen344.connpasssearch.detail.DetailFragment
-import com.ryunen344.connpasssearch.di.scope.FragmentScope
-import com.ryunen344.connpasssearch.di.viewmodel.ViewModelKey
-import com.ryunen344.connpasssearch.detail.DetailViewModel
-import com.ryunen344.connpasssearch.main.search.SearchFragment
+import com.ryunen344.connpasssearch.core.di.ViewModelKey
+import com.ryunen344.connpasssearch.feature.detail.DetailViewModel
 import dagger.Binds
 import dagger.Module
-import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 
 @Module
-internal abstract class DetailFragmentModule {
+abstract class DetailFragmentModule {
 
     @Binds
     @IntoMap
