@@ -1,10 +1,10 @@
 package com.ryunen344.connpasssearch.di
 
+import android.app.Application
 import com.ryunen344.connpasssearch.App
-import com.ryunen344.connpasssearch.core.di.ViewModelModule
-import com.ryunen344.connpasssearch.di.api.ApiModule
-import com.ryunen344.connpasssearch.di.repository.RepositoryModule
-import com.ryunen344.connpasssearch.di.ui.ActivityModule
+import com.ryunen344.connpasssearch.core.di.AppComponentInterface
+import com.ryunen344.connpasssearch.model.repository.EventRepository
+import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
@@ -13,14 +13,21 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
+        AppModule::class,
         AndroidInjectionModule::class,
-        ApiModule::class,
-        RepositoryModule::class,
-        ActivityModule::class,
-        ViewModelModule::class
+        RepositoryComponentModule::class,
+        ApiComponentModule::class
     ]
 )
-interface AppComponent : AndroidInjector<App> {
+interface AppComponent : AndroidInjector<App>, AppComponentInterface {
     @Component.Factory
-    interface Factory : AndroidInjector.Factory<App>
+    interface Factory : AndroidInjector.Factory<App> {
+        fun create(@BindsInstance application: Application): AppComponent
+    }
+
+    override fun inject(app: App)
+
+    override fun eventRepository(): EventRepository
 }
+
+fun Application.createAppComponent() = DaggerAppComponent.factory().create(this)

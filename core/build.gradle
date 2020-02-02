@@ -13,9 +13,11 @@ dependencies {
 
     implementation Dep.Kotlin.stdlibJvm
     implementation Dep.Kotlin.stdlibCommon
+    implementation Dep.Kotlin.serializationCommon
+    implementation Dep.Kotlin.serializationAndroid
 
     api Dep.Kotlin.coroutines
-    implementation Dep.Dagger.androidSupport
+    api Dep.Kotlin.coroutinesCommon
 
     implementation Dep.AndroidX.fragmentKtx
     implementation Dep.AndroidX.coreKtx

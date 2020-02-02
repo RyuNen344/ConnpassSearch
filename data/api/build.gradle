@@ -1,6 +1,4 @@
 import dependencies.Dep
-import dependencies.Packages
-import dependencies.Versions
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
@@ -15,7 +13,15 @@ androidExtensions {
     features = ["parcelize"]
 }
 
+android {
+    defaultConfig {
+        buildConfigField "String", "API_ENDPOINT", "\"https://connpass.com/api/v1/event\""
+    }
+}
+
 dependencies {
+    implementation project(":core")
+
     implementation Dep.Kotlin.stdlibJvm
     implementation Dep.Kotlin.stdlibCommon
 
