@@ -1,4 +1,4 @@
-package com.ryunen344.connpasssearch.di.ui
+package com.ryunen344.connpasssearch.feature.main.di
 
 import androidx.lifecycle.ViewModel
 import com.ryunen344.connpasssearch.core.di.FragmentScope

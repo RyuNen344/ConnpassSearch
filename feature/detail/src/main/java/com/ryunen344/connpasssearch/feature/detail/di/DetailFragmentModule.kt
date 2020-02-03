@@ -1,4 +1,4 @@
-package com.ryunen344.connpasssearch.di.ui
+package com.ryunen344.connpasssearch.feature.detail.di
 
 import androidx.lifecycle.ViewModel
 import com.ryunen344.connpasssearch.core.di.ViewModelKey
