@@ -7,6 +7,6 @@ import androidx.lifecycle.LifecycleOwner
 
 class LoggingLifecycleObserver : LifecycleEventObserver {
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-        Log.d("LifecycleEvent","$source : $event")
+        Log.d("$source", "$event")
     }
 }
