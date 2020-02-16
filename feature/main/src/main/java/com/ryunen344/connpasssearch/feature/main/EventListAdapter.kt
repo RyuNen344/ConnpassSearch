@@ -15,7 +15,7 @@ class EventListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            ItemEventBinding.inflate(LayoutInflater.from(parent.context))
+            ItemEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 

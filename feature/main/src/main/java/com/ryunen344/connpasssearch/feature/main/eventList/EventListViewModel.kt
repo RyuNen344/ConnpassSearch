@@ -16,7 +16,6 @@ import com.ryunen344.connpasssearch.model.LoadingState
 import com.ryunen344.connpasssearch.model.repository.EventRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import timber.log.debug
@@ -41,7 +40,6 @@ class EventListViewModel @Inject constructor(private val eventRepository: EventR
     private val eventListLoadStateLiveData: LiveData<LoadState<List<Event>>> = liveData {
         emitSource(
             eventRepository.getEventList(0)
-                .onEach { Timber.debug { it.toString() } }
                 .toLoadingState()
                 .asLiveData()
         )
@@ -59,8 +57,7 @@ class EventListViewModel @Inject constructor(private val eventRepository: EventR
         initialValue = UiModel.EMPTY,
         liveData1 = eventListLoadStateLiveData,
         liveData2 = reloadEventListLiveData
-    ) { uiModel, loadState, reloadState ->
-        Timber.debug { uiModel.toString() }
+    ) { _, loadState, reloadState ->
         Timber.debug { loadState.toString() }
         Timber.debug { loadState.getErrorIfExists().toString() }
         Timber.debug { reloadState.toString() }
@@ -70,8 +67,6 @@ class EventListViewModel @Inject constructor(private val eventRepository: EventR
         }
         val appError = reloadState.getErrorIfExists()?.toAppError()
             ?: loadState.getErrorIfExists()?.toAppError()
-
-
 
         UiModel(
             isLoading = (loadState.isLoading || reloadState.isLoading) && appError == null,
