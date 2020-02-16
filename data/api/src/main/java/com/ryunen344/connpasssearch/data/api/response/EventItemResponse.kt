@@ -12,8 +12,8 @@ interface EventItemResponse {
     val startedAt: DateTimeTz
     val endedAt: DateTimeTz
     val limit: Int
-    val eventType: EventTypeResponse
-    val series: GroupResponse
+    val eventType: String
+    val series: GroupResponse?
     val address: String
     val place: String
     val lat: Float

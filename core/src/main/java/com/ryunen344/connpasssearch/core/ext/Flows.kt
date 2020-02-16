@@ -1,6 +1,7 @@
 package com.ryunen344.connpasssearch.core.ext
 
 import com.ryunen344.connpasssearch.model.LoadState
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -8,6 +9,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 
+@ExperimentalCoroutinesApi
 fun <T> Flow<T>.toLoadingState(): Flow<LoadState<T>> {
     return map<T, LoadState<T>> { LoadState.Loaded(it) }
         .onStart {

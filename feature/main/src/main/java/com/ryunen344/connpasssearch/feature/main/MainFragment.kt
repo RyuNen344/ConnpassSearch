@@ -1,18 +1,13 @@
 package com.ryunen344.connpasssearch.feature.main
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.ryunen344.connpasssearch.core.ui.LoggingInjectableFragment
 import com.ryunen344.connpasssearch.feature.main.databinding.FragmentMainBinding
-import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 class MainFragment : LoggingInjectableFragment() {
@@ -22,26 +17,21 @@ class MainFragment : LoggingInjectableFragment() {
     @Inject
     lateinit var mainFragmentStateAdapter: MainFragmentStateAdapter
 
-    var prevMenuItem: MenuItem? = null
-
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
-        binding.lifecycleOwner = this@MainFragment.viewLifecycleOwner
-        initToolBar()
+        binding = FragmentMainBinding.inflate(inflater, container, false).also {
+            it.lifecycleOwner = viewLifecycleOwner
+        }
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initToolBar()
         initViewPager()
     }
 
@@ -111,9 +101,4 @@ class MainFragment : LoggingInjectableFragment() {
 
         )
     }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item, findNavController())
-    }
-
 }

@@ -12,6 +12,7 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonConfiguration
 import kotlin.coroutines.CoroutineContext
@@ -21,15 +22,18 @@ internal open class KtorConnpassApi constructor(
     private val apiEndpoint: String,
     private val coroutineDispatcherForCallback: CoroutineContext?
 ) : ConnpassApi {
-    private val json = Json(JsonConfiguration.Stable.copy(strictMode = false))
+    private val json = Json(JsonConfiguration.Stable)
+    @ImplicitReflectionSerializer
     override suspend fun getEvents(keyword: String?, count: Int, start: Int): EventResponse {
         val rawResponse = httpClient.get<String> {
             url("$apiEndpoint/?keyword=$keyword&count=$count&start=$start")
             accept(ContentType.Application.Json)
         }
+
         return json.parse(EventResponseImpl.serializer(), rawResponse)
     }
 
+    @ImplicitReflectionSerializer
     override fun getEvents(
         keyword: String?,
         count: Int,
@@ -47,6 +51,7 @@ internal open class KtorConnpassApi constructor(
         }
     }
 
+    @ImplicitReflectionSerializer
     override fun getEventsAsync(keyword: String?, count: Int, start: Int): Deferred<EventResponse> =
         GlobalScope.async(requireNotNull(coroutineDispatcherForCallback)) {
             getEvents(keyword, count, start)

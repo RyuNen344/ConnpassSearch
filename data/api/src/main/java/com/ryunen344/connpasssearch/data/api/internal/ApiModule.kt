@@ -26,17 +26,19 @@ internal abstract class ApiModule {
             return HttpClient(OkHttp) {
                 engine {
                     if (BuildConfig.DEBUG) {
-                        val loggingInterceptor = HttpLoggingInterceptor().apply {
-                            level = HttpLoggingInterceptor.Level.BODY
-                            addInterceptor(this)
-                        }
+                        addInterceptor(
+                            HttpLoggingInterceptor().apply {
+                                level = HttpLoggingInterceptor.Level.BODY
+
+                            }
+                        )
                     }
                     addInterceptor(UserAgentInterceptor())
                 }
                 install(JsonFeature) {
                     serializer = KotlinxSerializer(
                         Json(
-                            JsonConfiguration.Stable.copy(strictMode = false)
+                            JsonConfiguration.Stable.copy(unquoted = true)
                         )
                     )
                 }
@@ -45,6 +47,6 @@ internal abstract class ApiModule {
 
         @Provides
         @Named("apiEndpoint")
-        fun apiEndpoint(): String = apiEndpoint()
+        fun apiEndpoint(): String = com.ryunen344.connpasssearch.data.api.internal.apiEndpoint()
     }
 }

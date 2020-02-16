@@ -45,7 +45,7 @@ kotlin.sourceSets.all {
 }
 
 scabbard {
-    enabled true
+    enabled false
     failOnError false
     fullBindingGraphValidation true
 }

@@ -1,36 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context="com.ryunen344.connpasssearch.feature.main.MainFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.ryunen344.connpasssearch.feature.main.MainFragment">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/main_app_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true"
-            android:theme="@style/AppTheme.AppBarOverlay"
-            app:elevation="0dp"
-            app:layout_constrainedWidth="true">
+            android:id="@+id/main_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/main_tool_bar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:popupTheme="@style/AppTheme.AppBarOverlay" />
+                app:layout_scrollFlags="scroll|enterAlways|snap" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -38,9 +33,9 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:layout_gravity="bottom"
-                android:background="?android:attr/windowBackground"
-                app:layout_behavior="com.ryunen344.connpasssearch.core.ui.behavior.BottomNavigationBehavior"
-                app:layout_scrollFlags="snap"
+            android:background="?android:attr/windowBackground"
+            app:layout_behavior="com.ryunen344.connpasssearch.core.ui.behavior.BottomNavigationBehavior"
+            app:layout_scrollFlags="snap"
             app:menu="@menu/timeline_navigation" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

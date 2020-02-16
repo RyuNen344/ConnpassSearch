@@ -6,14 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.SimpleItemAnimator
 import com.ryunen344.connpasssearch.core.ui.LoggingInjectableFragment
-import com.ryunen344.connpasssearch.core.ui.behavior.EndlessScrollListener
 import com.ryunen344.connpasssearch.feature.main.R
 import com.ryunen344.connpasssearch.feature.main.databinding.FragmentSearchBinding
-import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
@@ -44,25 +40,25 @@ class SearchFragment : LoggingInjectableFragment() {
 
         val layoutManager = LinearLayoutManager(context)
 
-        main_event_list.apply {
-            this.layoutManager = layoutManager
-            this.setHasFixedSize(true)
-            //this.adapter = SearchAdapter(searchViewModel)
-            this.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
-            (this.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-            this.addOnScrollListener(object : EndlessScrollListener(layoutManager) {
-                override fun onLoadMore(currentPage: Int) {
-                    //searchViewModel.loadMoreEventList(currentPage)
-                }
-
-            })
-        }
-
-        swipe_refresh.apply {
-            setOnRefreshListener {
-                isRefreshing = false
-            }
-        }
+//        main_event_list.apply {
+//            this.layoutManager = layoutManager
+//            this.setHasFixedSize(true)
+//            //this.adapter = SearchAdapter(searchViewModel)
+//            this.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+//            (this.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+//            this.addOnScrollListener(object : EndlessScrollListener(layoutManager) {
+//                override fun onLoadMore(currentPage: Int) {
+//                    //searchViewModel.loadMoreEventList(currentPage)
+//                }
+//
+//            })
+//        }
+//
+//        swipe_refresh.apply {
+//            setOnRefreshListener {
+//                isRefreshing = false
+//            }
+//        }
 
 //        searchViewModel.keyword.observe(this.viewLifecycleOwner, Observer {
 //            if (it.isNotEmpty()) {

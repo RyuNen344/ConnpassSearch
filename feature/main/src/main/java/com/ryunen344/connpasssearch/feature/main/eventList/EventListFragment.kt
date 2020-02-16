@@ -1,23 +1,29 @@
 package com.ryunen344.connpasssearch.feature.main.eventList
 
-import android.content.Context
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.lifecycle.observe
+import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.TransitionManager
+import com.google.android.material.snackbar.Snackbar
 import com.ryunen344.connpasssearch.core.di.ViewModelFactory
+import com.ryunen344.connpasssearch.core.ext.isShow
+import com.ryunen344.connpasssearch.core.ext.stringRes
 import com.ryunen344.connpasssearch.core.ui.LoggingInjectableFragment
 import com.ryunen344.connpasssearch.core.ui.behavior.EndlessScrollListener
+import com.ryunen344.connpasssearch.core.ui.transition.Stagger
 import com.ryunen344.connpasssearch.feature.main.EventListAdapter
-import com.ryunen344.connpasssearch.feature.main.R
 import com.ryunen344.connpasssearch.feature.main.databinding.FragmentEventListBinding
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.AndroidSupportInjection
+import com.ryunen344.connpasssearch.model.AppError
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import timber.log.Timber
+import timber.log.debug
 import javax.inject.Inject
 
 class EventListFragment : LoggingInjectableFragment() {
@@ -25,34 +31,20 @@ class EventListFragment : LoggingInjectableFragment() {
     private lateinit var binding: FragmentEventListBinding
 
     @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
-
-    @Inject
-    lateinit var eventListAdapter: EventListAdapter
-
-    @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
     private val eventListViewModel: EventListViewModel by viewModels { viewModelFactory }
-
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate<FragmentEventListBinding>(
-            inflater,
-            R.layout.fragment_event_list,
-            container,
-            false
-        )
-        binding.lifecycleOwner = this@EventListFragment.viewLifecycleOwner
-        binding.viewModel = eventListViewModel
+        binding = FragmentEventListBinding.inflate(inflater, container, true).also {
+            it.lifecycleOwner = viewLifecycleOwner
+            it.viewModel = eventListViewModel
+        }
+
         return binding.root
     }
 
@@ -62,21 +54,47 @@ class EventListFragment : LoggingInjectableFragment() {
         loadEvent()
     }
 
+    @ExperimentalCoroutinesApi
     private fun initUI() {
-        val layoutManager = LinearLayoutManager(context)
+
+        val adapter = EventListAdapter {
+            Timber.debug { it.toString() }
+        }
 
         binding.mainEventList.apply {
-            this.layoutManager = layoutManager
-            this.adapter = eventListAdapter
-            this.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            this.adapter = adapter
             //(this.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-            this.addOnScrollListener(object : EndlessScrollListener(layoutManager) {
+            addOnScrollListener(object :
+                EndlessScrollListener(layoutManager as LinearLayoutManager) {
                 override fun onLoadMore(currentPage: Int) {
-                    eventListViewModel.loadMoreEventList(currentPage)
+                    //eventListViewModel.loadMoreEventList(currentPage)
+                }
+            })
+
+            itemAnimator = object : DefaultItemAnimator() {
+                override fun animateAdd(holder: RecyclerView.ViewHolder?): Boolean {
+                    dispatchAddFinished(holder)
+                    dispatchAddStarting(holder)
+                    return false
+                }
+            }
+
+            addItemDecoration(object : RecyclerView.ItemDecoration() {
+                override fun getItemOffsets(
+                    outRect: Rect,
+                    view: View,
+                    parent: RecyclerView,
+                    state: RecyclerView.State
+                ) {
+                    outRect.top = 6
+                    outRect.left = 6
+                    outRect.right = 6
+                    outRect.bottom = 6
                 }
             })
         }
 
+        binding.progressBar.show()
         binding.swipeRefresh.apply {
             //            this.setColorSchemeResources(
 //                R.color.colorAccent,
@@ -88,11 +106,39 @@ class EventListFragment : LoggingInjectableFragment() {
                 isRefreshing = false
             }
         }
+
+        val stagger = Stagger()
+        eventListViewModel.uiModel.observe(viewLifecycleOwner) { uiModel ->
+            binding.progressBar.isShow = uiModel.isLoading
+
+            TransitionManager.beginDelayedTransition(binding.mainEventList, stagger)
+            adapter.submitList(uiModel.eventList)
+
+            uiModel.error?.let {
+                showErrorSnackbar(
+                    binding.mainEventList,
+                    it,
+                    true
+                )
+            }
+        }
     }
 
     private fun loadEvent() {
         binding.viewModel?.loadEventList()
     }
 
-    override fun androidInjector(): AndroidInjector<Any> = androidInjector
+    private fun showErrorSnackbar(view: View, appError: AppError, showRetryAction: Boolean) {
+        Snackbar.make(
+            view,
+            appError.stringRes(),
+            Snackbar.LENGTH_LONG
+        ).apply {
+            if (showRetryAction) {
+                setAction("R.string.retry_label") {
+                    //contributorsViewModel.onRetry()
+                }
+            }
+        }.show()
+    }
 }

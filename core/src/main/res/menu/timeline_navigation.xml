@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-            android:id="@+id/navigation_home"
-            android:icon="@drawable/ic_launcher_background"
-            android:title="event list"/>
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="event list" />
 
     <item
-            android:id="@+id/navigation_search"
-            android:icon="@drawable/ic_launcher_background"
-            android:title="search"/>
+        android:id="@+id/navigation_search"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="search" />
 
 </menu>

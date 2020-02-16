@@ -9,7 +9,7 @@ import com.ryunen344.connpasssearch.feature.main.search.SearchFragment
 import javax.inject.Inject
 
 class MainFragmentStateAdapter @Inject constructor(fragment: MainFragment) :
-    FragmentStateAdapter(fragment as Fragment) {
+    FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int = 2
 

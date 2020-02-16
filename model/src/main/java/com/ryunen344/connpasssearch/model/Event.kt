@@ -13,7 +13,7 @@ data class Event(
     val endedAt: DateTimeTz,
     val limit: Int,
     val eventType: EventType,
-    val series: Group,
+    val series: Group?,
     val address: String,
     val place: String,
     val lat: Float,

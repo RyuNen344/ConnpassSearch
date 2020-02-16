@@ -2,6 +2,7 @@ package com.ryunen344.connpasssearch.core.binding
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.graphics.Paint
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ClickableSpan
@@ -12,6 +13,8 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import com.ryunen344.connpasssearch.core.util.AndroidRInteger
+import com.soywiz.klock.DateFormat
+import com.soywiz.klock.DateTimeTz
 
 @BindingAdapter("isVisible")
 fun View.showGone(show: Boolean) {
@@ -70,4 +73,38 @@ fun setHashTag(view: TextView, hashTagSource: String?) {
 @BindingAdapter("html")
 fun setHtmlText(view: TextView, htmlSource: String?) {
     view.text = HtmlCompat.fromHtml(htmlSource ?: "", HtmlCompat.FROM_HTML_MODE_COMPACT)
+}
+
+/**
+ * TextViewにDateをformatして表示する
+ */
+@BindingAdapter("date", "dateFormatPattern")
+fun date(textView: TextView, date: DateTimeTz?, pattern: String) {
+    date ?: return
+    val formatter = DateFormat(pattern)
+    textView.text = date.format(formatter)
+}
+
+/**
+ * TextViewに取り消し線を表示する
+ */
+@BindingAdapter("strikeThrough")
+fun TextView.strikeThrough(enable: Boolean?) {
+    if (enable == true) paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+}
+
+/**
+ * 真偽値がtrueになるまでviewをgoneにする
+ */
+@BindingAdapter("goneUnless")
+fun goneUnless(view: View, visible: Boolean) {
+    view.visibility = if (visible) View.VISIBLE else View.GONE
+}
+
+/**
+ * 真偽値がtrueになるまでviewをinvisibleにする
+ */
+@BindingAdapter("invisibleUnless")
+fun invisibleUnless(view: View, visible: Boolean) {
+    view.visibility = if (visible) View.VISIBLE else View.INVISIBLE
 }
