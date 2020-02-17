@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,11 +20,10 @@ import com.ryunen344.connpasssearch.core.ui.LoggingInjectableFragment
 import com.ryunen344.connpasssearch.core.ui.behavior.EndlessScrollListener
 import com.ryunen344.connpasssearch.core.ui.transition.Stagger
 import com.ryunen344.connpasssearch.feature.main.EventListAdapter
+import com.ryunen344.connpasssearch.feature.main.MainFragmentDirections
 import com.ryunen344.connpasssearch.feature.main.databinding.FragmentEventListBinding
 import com.ryunen344.connpasssearch.model.AppError
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import timber.log.Timber
-import timber.log.debug
 import javax.inject.Inject
 
 class EventListFragment : LoggingInjectableFragment() {
@@ -48,6 +48,7 @@ class EventListFragment : LoggingInjectableFragment() {
         return binding.root
     }
 
+    @ExperimentalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUI()
@@ -58,7 +59,8 @@ class EventListFragment : LoggingInjectableFragment() {
     private fun initUI() {
 
         val adapter = EventListAdapter {
-            Timber.debug { it.toString() }
+            val directionsToDetailFragment = MainFragmentDirections.actionToDetail(it.eventId)
+            parentFragment?.findNavController()?.navigate(directionsToDetailFragment)
         }
 
         binding.mainEventList.apply {

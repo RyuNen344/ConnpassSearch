@@ -4,18 +4,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.ryunen344.connpasssearch.core.ui.LoggingInjectableFragment
 import com.ryunen344.connpasssearch.feature.main.databinding.FragmentMainBinding
 import javax.inject.Inject
+import javax.inject.Provider
 
 class MainFragment : LoggingInjectableFragment() {
 
     private lateinit var binding: FragmentMainBinding
 
     @Inject
-    lateinit var mainFragmentStateAdapter: MainFragmentStateAdapter
+    lateinit var mainFragmentStateAdapterProvider: Provider<MainFragmentStateAdapter>
+
+    // バックキー制御
+    private val callback = object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() {
+            binding.viewPagerContainer.let {
+                if (it.currentItem > 0) {
+                    it.currentItem = it.currentItem - 1
+                }
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,7 +54,7 @@ class MainFragment : LoggingInjectableFragment() {
     }
 
     private fun initViewPager() {
-        binding.viewPagerContainer.adapter = mainFragmentStateAdapter
+        binding.viewPagerContainer.adapter = mainFragmentStateAdapterProvider.get()
 
         binding.navigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -51,54 +65,23 @@ class MainFragment : LoggingInjectableFragment() {
                     binding.viewPagerContainer.currentItem = 1
                 }
             }
-            false
+            true
         }
 
-        binding.viewPagerContainer.addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
+        binding.viewPagerContainer.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                binding.navigation.menu.getItem(position)?.isChecked = true
 
-//            override fun onPageScrolled(
-//                position: Int,
-//                positionOffset: Float,
-//                positionOffsetPixels: Int
-//            ) {
-//                LogUtil.d()
-//                activity?.let {
-//                    it.toolbar.title = mSectionsPagerAdapter.getPageTitle(position)
-//                }
-//            }
-//
-//            override fun onPageSelected(position: Int) {
-//                LogUtil.d()
-//
-//                if (prevMenuItem != null) {
-//                    prevMenuItem?.isChecked = false
-//                } else {
-//                    activity?.let {
-//                        it.navigation.menu[0].isChecked = false
-//                        it.toolbar.title = mSectionsPagerAdapter.getPageTitle(0)
-//                    }
-//                }
-//
-//                activity?.let {
-//                    it.navigation.menu[position].isChecked = true
-//                    prevMenuItem = it.navigation.menu[position]
-//                }
-//            }
-
-            override fun onLayoutChange(
-                v: View?,
-                left: Int,
-                top: Int,
-                right: Int,
-                bottom: Int,
-                oldLeft: Int,
-                oldTop: Int,
-                oldRight: Int,
-                oldBottom: Int
-            ) {
+                // bottom navigationの一番左以外はバックキー制御を有効か
+                callback.isEnabled = position > 0
             }
-        }
+        })
+    }
 
-        )
+    override fun onDestroyView() {
+        binding.viewPagerContainer.adapter = null
+        super.onDestroyView()
     }
 }
