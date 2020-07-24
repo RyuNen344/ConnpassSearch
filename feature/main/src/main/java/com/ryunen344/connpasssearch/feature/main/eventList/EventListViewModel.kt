@@ -3,12 +3,9 @@ package com.ryunen344.connpasssearch.feature.main.eventList
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.ryunen344.connpasssearch.core.ext.combine
-import com.ryunen344.connpasssearch.core.ext.toAppError
-import com.ryunen344.connpasssearch.core.ext.toLoadingState
 import com.ryunen344.connpasssearch.model.AppError
 import com.ryunen344.connpasssearch.model.Event
 import com.ryunen344.connpasssearch.model.LoadState

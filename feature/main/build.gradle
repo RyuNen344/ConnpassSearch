@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 apply from: rootProject.file('gradle/android.gradle')
-android.buildFeatures.dataBinding = true
+android.dataBinding.enabled = true
 
 dependencies {
     implementation project(":model")
@@ -25,18 +25,11 @@ dependencies {
     implementation Dep.AndroidX.Navigation.fragmentKtx
     implementation Dep.AndroidX.Navigation.runtimeKtx
 
-    implementation Dep.Kotlin.coroutines
-    implementation Dep.Kotlin.coroutinesCommon
+    implementation Dep.Kotlin.Coroutines.coroutines
+    implementation Dep.Kotlin.Coroutines.coroutinesAndroid
 
     //jsoup
     implementation 'org.jsoup:jsoup:1.12.1'
-
-    implementation Dep.Dagger.core
-    implementation Dep.Dagger.androidSupport
-    kapt Dep.Dagger.compiler
-    kapt Dep.Dagger.androidProcessor
-    compileOnly Dep.Dagger.assistedInjectAnnotations
-    kapt Dep.Dagger.assistedInjectProcessor
 
     testImplementation Dep.Test.junit
     testImplementation Dep.Test.kotlinTestAssertions

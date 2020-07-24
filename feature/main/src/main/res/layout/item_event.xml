@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.ryunen344.connpasssearch.model.Event" />
+            type="com.ryunen344.connpasssearch.com.ryunen344.connpasssearch.model.Event" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

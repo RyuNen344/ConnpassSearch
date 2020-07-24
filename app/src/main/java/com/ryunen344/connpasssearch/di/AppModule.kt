@@ -1,14 +1,12 @@
 package com.ryunen344.connpasssearch.di
 
-import android.app.Application
-import android.content.Context
-import dagger.Module
-import dagger.Provides
+import com.ryunen344.connpasssearch.initializer.AppInitializers
+import com.ryunen344.connpasssearch.initializer.CoilInitializer
+import com.ryunen344.connpasssearch.initializer.TimberInitializer
+import com.ryunen344.connpasssearch.initializer.UniFlowLoggerInitializer
+import org.koin.dsl.module
 
-@Module(includes = [AppModuleBinds::class])
-class AppModule {
-    @Provides
-    fun provideAppContext(application: Application): Context {
-        return application
-    }
+val appModule = module {
+    single { listOf(CoilInitializer(get()), TimberInitializer(), TimberInitializer(), UniFlowLoggerInitializer()) }
+    single { AppInitializers(get()) }
 }

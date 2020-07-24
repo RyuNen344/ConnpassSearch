@@ -3,44 +3,54 @@
 import dependencies.Dep
 
 apply from: file('gradle/dependencyGraph.gradle')
+apply from: file('gradle/jvm.gradle')
 apply from: file('gradle/utils.gradle')
 
 buildscript {
     repositories {
-        mavenLocal()
         google()
         jcenter()
-
-        maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
-        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
-        maven { url "https://plugins.gradle.org/m2/" }
-        maven { url 'https://jitpack.io' }
+        gradlePluginPortal()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://kotlin.bintray.com/kotlinx" }
+        maven { url "https://kotlin.bintray.com/kotlin-eap" }
+        maven { url "https://kotlin.bintray.com/kotlin-dev" }
+        maven { url "https://dl.bintray.com/soywiz/soywiz" }
+        maven { url "https://dl.bintray.com/ekito/koin" }
+        maven { url "https://dl.bintray.com/kotlin/ktor" }
+        maven { url "https://dl.bintray.com/lisawray/maven" }
+        maven {
+            url "https://jitpack.io"
+            content {
+                excludeGroup("Kotlin/Native")
+            }
+        }
     }
     dependencies {
-        classpath Dep.GradlePlugin.android
+        classpath Dep.GradlePlugin.Android.android
+        classpath Dep.GradlePlugin.Android.safeArgs
         classpath Dep.GradlePlugin.kotlin
+        classpath Dep.GradlePlugin.kotlinExtension
         classpath Dep.GradlePlugin.kotlinSerialization
-        classpath Dep.GradlePlugin.safeArgs
+        classpath Dep.GradlePlugin.koin
         classpath Dep.GradlePlugin.jetifier
-        classpath Dep.GradlePlugin.licensesPlugin
         classpath Dep.GradlePlugin.iconRibbonPlugin
-        classpath Dep.GradlePlugin.gradleVersionsPlugin
-        classpath "gradle.plugin.dev.arunkumar:scabbard-gradle-plugin:0.1.0"
     }
 }
 
 allprojects {
     repositories {
-        mavenLocal()
         google()
         jcenter()
-
-        maven { url 'https://dl.bintray.com/kotlin/kotlin-dev' }
-        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+        gradlePluginPortal()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://kotlin.bintray.com/kotlinx" }
+        maven { url "https://kotlin.bintray.com/kotlin-eap" }
+        maven { url "https://kotlin.bintray.com/kotlin-dev" }
         maven { url "https://dl.bintray.com/soywiz/soywiz" }
-        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        maven { url "https://dl.bintray.com/ekito/koin" }
         maven { url "https://dl.bintray.com/kotlin/ktor" }
-        maven { url "https://dl.bintray.com/kotlin/kotlinx" }
+        maven { url "https://dl.bintray.com/lisawray/maven" }
         maven {
             url "https://jitpack.io"
             content {
@@ -50,8 +60,8 @@ allprojects {
     }
 }
 
+apply plugin: 'koin'
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-
-apply plugin: "com.github.ben-manes.versions"

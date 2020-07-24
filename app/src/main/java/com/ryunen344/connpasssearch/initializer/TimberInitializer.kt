@@ -1,12 +1,13 @@
 package com.ryunen344.connpasssearch.initializer
 
-import android.app.Application
+import com.ryunen344.connpasssearch.BuildConfig
 import timber.log.LogcatTree
 import timber.log.Timber
-import javax.inject.Inject
 
-class TimberInitializer @Inject constructor() : AppInitializer {
-    override fun initialize(application: Application) {
-        Timber.plant(LogcatTree())
+class TimberInitializer : AppInitializer {
+    override fun initialize() {
+        if (BuildConfig.DEBUG) {
+            Timber.plant(LogcatTree())
+        }
     }
 }

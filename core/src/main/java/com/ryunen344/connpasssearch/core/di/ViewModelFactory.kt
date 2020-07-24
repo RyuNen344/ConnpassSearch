@@ -20,7 +20,7 @@ class ViewModelFactory @Inject constructor(
             }
         }
         if (creator == null) {
-            throw IllegalArgumentException("unknown model class $modelClass")
+            throw IllegalArgumentException("unknown com.ryunen344.connpasssearch.com.ryunen344.connpasssearch.model class $modelClass")
         }
         try {
             @Suppress("UNCHECKED_CAST")

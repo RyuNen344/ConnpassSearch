@@ -10,7 +10,6 @@ import com.ryunen344.connpasssearch.model.Group
 import com.ryunen344.connpasssearch.model.repository.EventRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flow
 import timber.log.Timber
 import timber.log.debug

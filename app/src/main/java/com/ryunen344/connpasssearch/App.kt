@@ -1,31 +1,36 @@
 package com.ryunen344.connpasssearch
 
-import com.ryunen344.connpasssearch.core.di.AppComponentHolder
-import com.ryunen344.connpasssearch.di.AppComponent
-import com.ryunen344.connpasssearch.di.createAppComponent
+import android.app.Application
+import android.content.Context
+import com.google.android.play.core.splitcompat.SplitCompat
+import com.ryunen344.connpasssearch.di.appModule
 import com.ryunen344.connpasssearch.initializer.AppInitializers
-import dagger.android.AndroidInjector
-import dagger.android.DaggerApplication
-import javax.inject.Inject
+import org.koin.android.ext.android.inject
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidFileProperties
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
-class App : DaggerApplication(), AppComponentHolder {
+class App : Application() {
 
-    override val appComponent: AppComponent by lazy {
-        createAppComponent()
+    private val initializers: AppInitializers by inject()
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        SplitCompat.install(this)
     }
-
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return appComponent
-    }
-
-    @Inject
-    lateinit var initializers: AppInitializers
 
     override fun onCreate() {
         super.onCreate()
-        //dependency inject
-        initializers.initialize(this)
+
+        startKoin {
+            androidLogger(if (BuildConfig.DEBUG) Level.DEBUG else Level.ERROR)
+            androidContext(this@App)
+            androidFileProperties()
+            modules(listOf(appModule))
+        }
+
+        initializers.initialize()
     }
-
-
 }

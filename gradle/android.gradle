@@ -1,11 +1,9 @@
 import dependencies.Versions
 
-apply plugin: 'kotlin-kapt'
-apply plugin: "scabbard.gradle"
-
 android {
     compileSdkVersion Versions.androidCompileSdkVersion
     buildToolsVersion Versions.androidBuildToolsVersion
+
     defaultConfig {
         minSdkVersion Versions.androidMinSdkVersion
         targetSdkVersion Versions.androidTargetSdkVersion
@@ -36,16 +34,17 @@ android {
         exclude 'META-INF/*.version'
         exclude 'META-INF/proguard/*.pro'
     }
-}
 
-kotlin.sourceSets.all {
-    languageSettings {
-        progressiveMode = true
+    buildFeatures {
+        buildConfig = true
     }
 }
 
-scabbard {
-    enabled false
-    failOnError false
-    fullBindingGraphValidation true
+kotlin {
+    sourceSets.all {
+        languageSettings {
+            progressiveMode = true
+        }
+
+    }
 }

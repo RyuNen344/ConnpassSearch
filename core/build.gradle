@@ -7,23 +7,25 @@ apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'kotlin-kapt'
 
 apply from: rootProject.file('gradle/android.gradle')
-android.buildFeatures.dataBinding = true
+android.dataBinding.enabled = true
 
 dependencies {
+    api project(":resource")
     api project(":model")
+    api project(":data:repository")
 
     implementation Dep.Kotlin.stdlibJvm
     implementation Dep.Kotlin.stdlibCommon
-    implementation Dep.Kotlin.serializationCommon
-    implementation Dep.Kotlin.serializationAndroid
+    implementation Dep.Kotlin.Serialization.serializationCommon
+    implementation Dep.Kotlin.Serialization.serializationAndroid
 
-    api Dep.Kotlin.coroutines
-    api Dep.Kotlin.coroutinesCommon
+    api Dep.Kotlin.Coroutines.coroutines
+    api Dep.Kotlin.Coroutines.coroutinesAndroid
 
     api Dep.AndroidX.fragmentKtx
     api Dep.AndroidX.coreKtx
-    api Dep.AndroidX.liveDataKtx
-    api Dep.AndroidX.liveDataCoreKtx
+    api Dep.AndroidX.LiveData.liveDataKtx
+    api Dep.AndroidX.LiveData.liveDataCoreKtx
     implementation Dep.AndroidX.design
     implementation Dep.AndroidX.browser
 
@@ -39,12 +41,7 @@ dependencies {
     api Dep.Timber.android
     api Dep.Klock.common
 
-    implementation Dep.Dagger.core
-    implementation Dep.Dagger.androidSupport
-    kapt Dep.Dagger.compiler
-    kapt Dep.Dagger.androidProcessor
-    compileOnly Dep.Dagger.assistedInjectAnnotations
-    kapt Dep.Dagger.assistedInjectProcessor
+    api Dep.Uniflow.androidx
 
     testImplementation Dep.Test.junit
     testImplementation Dep.Test.kotlinTestAssertions

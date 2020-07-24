@@ -1,0 +1,49 @@
+import dependencies.Dep
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+apply from: rootProject.file('gradle/android.gradle')
+
+androidExtensions {
+    experimental = true
+    features = ["parcelize"]
+}
+
+android {
+    defaultConfig {
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        "room.incremental": "true"
+                ]
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation project(":model")
+    implementation project(":data:api")
+
+    implementation Dep.Kotlin.stdlibJvm
+    implementation Dep.Kotlin.stdlibCommon
+
+    kapt Dep.AndroidX.Room.compiler
+    implementation Dep.AndroidX.Room.coroutine
+    implementation Dep.AndroidX.Room.common
+    implementation Dep.AndroidX.Room.runtime
+
+    implementation Dep.Kotlin.Coroutines.coroutines
+    implementation Dep.Kotlin.Coroutines.coroutinesAndroid
+
+    api Dep.Klock.common
+
+    testImplementation Dep.Test.junit
+    testImplementation Dep.Test.kotlinTestAssertions
+    testImplementation Dep.MockK.jvm
+    androidTestImplementation Dep.Test.testRunner
+    androidTestImplementation Dep.Test.espressoCore
+}

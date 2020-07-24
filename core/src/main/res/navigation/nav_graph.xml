@@ -24,17 +24,6 @@
 
     </fragment>
 
-    <!--    <fragment-->
-    <!--            android:id="@+id/event_list_fragment"-->
-    <!--            android:name="com.ryunen344.connpasssearch.feature.main.eventList.EventListFragment"-->
-    <!--            android:label="@string/app_name" />-->
-
-    <!--    <fragment-->
-    <!--            android:id="@+id/search_fragment"-->
-    <!--            android:name="com.ryunen344.connpasssearch.feature.main.search.SearchFragment"-->
-    <!--            android:label="@string/app_name" />-->
-
-
     <fragment
         android:id="@+id/detail_fragment"
         android:name="com.ryunen344.connpasssearch.feature.detail.DetailFragment">
@@ -45,22 +34,5 @@
             app:argType="integer" />
 
     </fragment>
-
-    <!--    <navigation-->
-    <!--            android:id="@+id/detail_nav"-->
-    <!--            app:startDestination="@id/detail_fragment">-->
-
-    <!--        <fragment-->
-    <!--                android:id="@+id/detail_fragment"-->
-    <!--                android:name="com.ryunen344.connpasssearch.feature.detail.DetailFragment">-->
-
-    <!--            <argument-->
-    <!--                    android:name="eventId"-->
-    <!--                    android:defaultValue="0"-->
-    <!--                    app:argType="integer" />-->
-
-    <!--        </fragment>-->
-
-    <!--    </navigation>-->
 
 </navigation>

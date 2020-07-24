@@ -6,15 +6,15 @@ import com.soywiz.klock.parse
 import kotlinx.serialization.Decoder
 import kotlinx.serialization.Encoder
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.PrimitiveDescriptor
+import kotlinx.serialization.PrimitiveKind
 import kotlinx.serialization.SerialDescriptor
 import kotlinx.serialization.Serializer
-import kotlinx.serialization.internal.StringDescriptor
-import kotlinx.serialization.withName
 
 @Serializer(forClass = DateTimeTz::class)
 object DateTimeTzSerializer : KSerializer<DateTimeTz> {
     override val descriptor: SerialDescriptor =
-        StringDescriptor.withName("DateTimeTz")
+        PrimitiveDescriptor("DateTimeTz", PrimitiveKind.STRING)
 
     override fun serialize(encoder: Encoder, obj: DateTimeTz) {
         encoder.encodeString(obj.toString())
